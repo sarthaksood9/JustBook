@@ -8,8 +8,13 @@ import { useFonts, Inter_400Regular, Inter_700Bold } from '@expo-google-fonts/in
 import UpperNav from './components/UpperNav';
 import Rooms from './Subscreens/Rooms';
 import Pools from './Subscreens/Pools';
+import Trips from './screens/Trips';
+import Message from './screens/Message';
+import Profile from './screens/Profile';
+import WhishList from './screens/WishList';
 import BottomNav from './components/BottomNav';
 import { useState } from 'react';
+import WishList from './screens/WishList';
 
 const Stack = createStackNavigator();
 
@@ -19,20 +24,26 @@ export default function App() {
     Inter_700Bold,
   });
 
-  const [icons,setIcons]=useState("rooms")
+  const [icons, setIcons] = useState("rooms")
   return (
 
     <NavigationContainer independent={true}>
-      <View style={styles.main}>
-        <View style={styles.upperNavView}>
-          <Search />
-          <UpperNav icons={icons} setIcons={setIcons} />
+      <View style={styles.container}>
+        <View style={styles.main}>
+          {(icons === "rooms"|| icons==="pools") &&<View style={styles.upperNavView}>
+            <Search />
+            <UpperNav icons={icons} setIcons={setIcons} />
+          </View>}
+          <Stack.Navigator>
+            <Stack.Screen name="rooms" component={Rooms} options={{ headerShown: false }} />
+            <Stack.Screen name="pools" component={Pools} options={{ headerShown: false }} />
+            <Stack.Screen name="wishlist" component={WishList} options={{ headerShown: false }} />
+            <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
+            <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
+            <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+          </Stack.Navigator>
         </View>
-        <Stack.Navigator>
-          <Stack.Screen name="rooms" component={Rooms} options={{ headerShown: false }} />
-          <Stack.Screen name="pools" component={Pools} options={{ headerShown: false }} />
-        </Stack.Navigator>
-        <BottomNav />
+        <BottomNav icons={icons} setIcons={setIcons} />
       </View>
     </NavigationContainer>
 
@@ -41,12 +52,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  
+
   main: {
-    marginVertical: 8,
     marginVertical: 52,
     position: "relative",
-    flex:1
+    flex: 1
   },
   upperNavView: {
     elevation: 2,
@@ -57,13 +67,9 @@ const styles = StyleSheet.create({
   },
 
 
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   width: "100%",
-  //   position: "relative"
-  //   // fontFamily: 'Inter_400Regular'
-  // },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    position: "relative"
+  },
 });

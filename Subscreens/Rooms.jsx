@@ -15,6 +15,7 @@ const Rooms = () => {
   return (
     <View style={styles.homeCount}>
       <FlatList
+      showsVerticalScrollIndicator={false}
         style={{ marginHorizontal: 18 }}
         data={data}
         key={item => item.name}
