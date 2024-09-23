@@ -13,6 +13,7 @@ const BottomNav = ({ setIcons, icons }) => {
     const currentRoute = icons;
     const cc = navigate.getCurrentRoute()?.name;
 
+
     const hendleNavigateRooms = (name) => {
         navigate.navigate(name)
         setIcons(name)
@@ -22,32 +23,32 @@ const BottomNav = ({ setIcons, icons }) => {
         <View style={styles.botNav}>
             <Pressable onPress={() => { hendleNavigateRooms("rooms") }}>
                 <View style={[styles.iconView,]}>
-                    <Icon name="search" size={28} style={{ fontWeight: "bold", color: "red" }} />
-                    <Text style={[styles.navFont, { color: "red" }]}>Search</Text>
+                    <Icon name="search" size={28} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools"  ?"red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "rooms" || currentRoute === "pools" ?"red" : "rgb(141, 141, 141)" }]}>Search</Text>
                 </View>
             </Pressable>
             <Pressable onPress={() => { hendleNavigateRooms("wishlist") }}>
                 <View style={styles.iconView}>
-                    <Icon3 name="favorite-border" size={28} style={{ fontWeight: "200", color: currentRoute === "wishlist"?"rgb(141, 141, 141)":"" }} />
-                    <Text style={styles.navFont}> Wishlists</Text>
+                    <Icon3 name="favorite-border" size={28} style={{ fontWeight: "200", color: currentRoute === "wishlist" ?"red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "wishlist" ?"red" : "rgb(141, 141, 141)" }]}> Wishlists</Text>
                 </View>
             </Pressable>
             <Pressable onPress={() => { hendleNavigateRooms("trips") }}>
                 <View style={styles.iconView}>
-                    <Icon2 name="airbnb" size={28} style={{ fontWeight: "100", color: currentRoute === "wishlist"?"rgb(141, 141, 141)":"" }} />
-                    <Text style={styles.navFont}>Trips</Text>
+                    <Icon2 name="airbnb" size={28} style={{ fontWeight: "100", color: currentRoute === "trips"?"red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "trips" ?"red" : "rgb(141, 141, 141)" }]}>Trips</Text>
                 </View>
             </Pressable>
             <Pressable onPress={() => { hendleNavigateRooms("message") }}>
                 <View style={styles.iconView}>
-                    <Icon4 name="message-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "wishlist"?"rgb(141, 141, 141)":"" }} />
-                    <Text style={styles.navFont}>Message</Text>
+                    <Icon4 name="message-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "message"?"red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "message" ?"red" : "rgb(141, 141, 141)" }]}>Message</Text>
                 </View>
             </Pressable >
             <Pressable onPress={() => { hendleNavigateRooms("profile") }}>
                 <View style={styles.iconView}>
-                    <Icon5 name="person-circle-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "wishlist"?"rgb(141, 141, 141)":"" }} />
-                    <Text style={styles.navFont}>Profile</Text>
+                    <Icon5 name="person-circle-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "profile"?"red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "profile" ?"red" : "rgb(141, 141, 141)" }]}>Profile</Text>
                 </View>
             </Pressable>
         </View >

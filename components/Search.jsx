@@ -1,15 +1,24 @@
 import { Platform, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon  from 'react-native-vector-icons/Feather';
+import { LiaArrowCircleRightSolid } from 'react-icons/lia';
 
-const Search = () => {
+const Search = ({inputVal,setInputVal}) => {
+
+
+    // const [ii,setIi]=useState("");
+
+   
+   
+    
     return (
         <View style={styles.main}>
             <View>
                 <Icon name="search" size={25} style={{fontWeight:"bold"}}/>
             </View>
             <View>
-                <TextInput style={{fontFamily: 'Inter_400Regular'}} placeholder='Anywhere . any week . Add guests' />
+                <TextInput value={inputVal} onChangeText={(text) => setInputVal(text.toLowerCase())}  style={{fontFamily: 'Inter_400Regular'}} placeholder='Anywhere . any week . Add guests' />
+                {/* <TextInput value={inputVal} onChange={(e)=>{setInputVal(e.target.value)}} style={{fontFamily: 'Inter_400Regular'}} placeholder='Anywhere . any week . Add guests' /> */}
             </View>
         </View>
     )

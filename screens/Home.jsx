@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Search from '../components/Search'
 import RoomCard from '../components/RoomCard'
 import { hotelDummyData } from '../Data/hotels'
@@ -13,18 +13,11 @@ import Rooms from '../Subscreens/Rooms'
 const Stack = createStackNavigator();
 
 const Home = () => {
-    const data = hotelDummyData;
+    
 
-    const renderCards = (itemData) => {
-        const item = itemData.item;
-        return <RoomCard item={item} />
-    }
+    const j=11;
     return (
         <View style={styles.main}>
-
-
-
-
             <NavigationContainer independent={true}>
                 <View style={styles.upperNavView}>
                     <Search />

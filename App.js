@@ -25,18 +25,28 @@ export default function App() {
   });
 
   const [icons, setIcons] = useState("rooms")
+
+  const [inputVal, setInputVal] = useState("");
+
+  const RenderRooms=()=>{
+    return <Rooms inputVal={inputVal} setInputVal={setInputVal} />
+  }
+  const RenderPools=()=>{
+    return <Pools inputVal={inputVal} setInputVal={setInputVal} />
+  }
+
   return (
 
     <NavigationContainer independent={true}>
       <View style={styles.container}>
         <View style={styles.main}>
-          {(icons === "rooms"|| icons==="pools") &&<View style={styles.upperNavView}>
-            <Search />
+          {(icons === "rooms" || icons === "pools") && <View style={styles.upperNavView}>
+            <Search inputVal={inputVal} setInputVal={setInputVal} />
             <UpperNav icons={icons} setIcons={setIcons} />
           </View>}
           <Stack.Navigator>
-            <Stack.Screen name="rooms" component={Rooms} options={{ headerShown: false }} />
-            <Stack.Screen name="pools" component={Pools} options={{ headerShown: false }} />
+            <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
+            <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
             <Stack.Screen name="wishlist" component={WishList} options={{ headerShown: false }} />
             <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
             <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
