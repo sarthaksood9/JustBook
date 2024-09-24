@@ -36,8 +36,8 @@ export default function App() {
   }
 
   return (
-
     <NavigationContainer independent={true}>
+      <StatusBar style='dark'></StatusBar>
       <View style={styles.container}>
         <View style={styles.main}>
           {(icons === "rooms" || icons === "pools") && <View style={styles.upperNavView}>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   main: {
     marginVertical: 52,
     position: "relative",
-    flex: 1
+    flex: 1,
   },
   upperNavView: {
     elevation: 2,
