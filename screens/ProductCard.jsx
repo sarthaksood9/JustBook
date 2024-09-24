@@ -1,12 +1,13 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/Feather';
 import Icon5 from 'react-native-vector-icons/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, removeItem } from '../redux/WishList/actions';
 
 const ProductCard = ({ icons, setIcons }) => {
     const navigate = useNavigation();
@@ -16,12 +17,23 @@ const ProductCard = ({ icons, setIcons }) => {
             setIcons("rooms")
     }
 
+    const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
+    const item2 = useSelector(state => state.wishlist);
 
-    // console.log(item);
-    
+    console.log(item2);
+
     // const state=useSelector(state=>state.recentVisit.items[1])
     // console.log(state);
+
+    const [wishPress,setWishPress]=useState(false);
+
+    let wishBtn= {
+        fontSize: 30,
+        backgroundColor:wishPress?"#f13333e0":"white",
+        color:wishPress?"#fff":"black",
+        paddingVertical:4
+    }
     return (
         <>
             <View style={styles.navBtnsOverlAy}>
@@ -35,7 +47,9 @@ const ProductCard = ({ icons, setIcons }) => {
                         <Icon name="share-outline" style={styles.sharebBtn} />
                     </View>
                     <View style={styles.BtnView}>
-                        <Icon5 name="heart" style={styles.wishBtn} />
+                        <Pressable onPress={() => { {!wishPress?dispatch(addItem(item)):dispatch(removeItem(item.id))};setWishPress(!wishPress) }}>
+                            <Icon5 name="heart" style={[wishBtn]} />
+                        </Pressable>
                     </View>
                 </View>
             </View>
@@ -61,7 +75,7 @@ const ProductCard = ({ icons, setIcons }) => {
                     <View style={styles.featView}>
                         {item.features.map((feature, index) => {
                             return (
-                                <View style={styles.feat}>
+                                <View key={index} style={styles.feat}>
                                     <View style={styles.featIconView}>
                                         <Icon name="bed-outline" size={30} style={styles.featIcon} />
                                     </View>
@@ -97,7 +111,9 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 50,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        overflow:"hidden",
+        
     },
     BackBtn: {
         fontSize: 30
@@ -106,9 +122,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 15
     },
-    wishBtn: {
-        fontSize: 30
-    },
+    
     sharebBtn: {
         fontSize: 21,
         // width:30,
