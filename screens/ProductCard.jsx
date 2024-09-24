@@ -18,7 +18,10 @@ const ProductCard = ({ icons, setIcons }) => {
 
     const item = useSelector(state => state.product.item);
 
-    console.log(item);
+    // console.log(item);
+    
+    // const state=useSelector(state=>state.recentVisit.items[1])
+    // console.log(state);
     return (
         <>
             <View style={styles.navBtnsOverlAy}>

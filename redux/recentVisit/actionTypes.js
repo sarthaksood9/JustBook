@@ -1,0 +1,1 @@
+export const ADD_TO_RECENT = 'ADD_TO_RECENT';

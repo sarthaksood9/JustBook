@@ -3,8 +3,9 @@ import React from 'react'
 import { hotelDummyData } from '../Data/hotels'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectProduct } from '../redux/Product/actions';
+import { addToResent } from '../redux/recentVisit/actions';
 
 const RoomCard = ({ item, icons, setIcons }) => {
 
@@ -16,12 +17,12 @@ const RoomCard = ({ item, icons, setIcons }) => {
     }
 
 
-    const dispatch=useDispatch();
+    const dispatch=useDispatch()
 
 
 
     return (
-        <Pressable onPress={() => { handleCardBtn();dispatch(selectProduct(item)) }}>
+        <Pressable onPress={() => { handleCardBtn();dispatch(selectProduct(item));dispatch(addToResent(item)) }}>
             <View style={styles.cont}>
                 <View style={styles.imageView} >
                     <Image style={styles.image} source={{ uri: item.imgUrl }} />
