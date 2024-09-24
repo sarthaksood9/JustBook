@@ -5,6 +5,7 @@ import RoomCard from '../components/RoomCard';
 import PoolCard from '../components/PoolCard';
 import { hotelDummyData } from '../Data/hotels';
 import useDebounce from '../hooks/useDebounce';
+import ThreeDotsLoading from '../components/ThreeDotsLoading';
 
 const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
 
@@ -43,7 +44,7 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
   };
 
 
-  useDebounce(filterHotels, 2000, [inputVal],setLoading);
+  useDebounce(filterHotels, 1500, [inputVal],setLoading);
 
 
 
@@ -55,7 +56,7 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
 
   return (
     <View style={styles.homeCount}>
-      {!loading?<Text>loading</Text>:<FlatList
+      {!loading?<ThreeDotsLoading/>:<FlatList
         showsVerticalScrollIndicator={false}
         style={{ marginHorizontal: 18 }}
         data={data}
