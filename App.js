@@ -18,6 +18,7 @@ import WishList from './screens/WishList';
 import ProductCard from './screens/ProductCard';
 import { Provider } from 'react-redux';
 import store from './redux/WishList/store';
+import RecentVisit from './screens/RecentVisit';
 
 const Stack = createStackNavigator();
 
@@ -39,9 +40,16 @@ export default function App() {
   const RenderPools = () => {
     return <Pools inputVal={inputVal} setInputVal={setInputVal} icons={icons} setIcons={setIcons} />
   }
+  const RenderWishListScreen = () => {
+    return <WishList icons={icons} setIcons={setIcons} />
+  }
+  const RenderRecentVisitScreen = () => {
+    return <RecentVisit icons={icons} setIcons={setIcons} />
+  }
   const RenderProductCard = () => {
     return <ProductCard icons={icons} setIcons={setIcons} />
   }
+  console.log(icons);
 
   return (
     <Provider store={store}>
@@ -56,15 +64,16 @@ export default function App() {
             <Stack.Navigator>
               <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
               <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
-              <Stack.Screen name="wishlist" component={WishList} options={{ headerShown: false }} />
+              <Stack.Screen name="wishlist" component={RenderWishListScreen} options={{ headerShown: false }} />
               <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
               <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
               <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
               <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
+              <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
           </View>
-          <BottomNav icons={icons} setIcons={setIcons} />
-          {/* {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />} */}
+          {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
+          {(icons !== "recentvisit" ) && <BottomNav icons={icons} setIcons={setIcons} />}
         </View>
       </NavigationContainer>
     </Provider>
@@ -75,9 +84,10 @@ export default function App() {
 const styles = StyleSheet.create({
 
   main: {
-    marginVertical: 52,
+    marginTop: 52,
     position: "relative",
     flex: 1,
+    backgroundColor:"white"
   },
   upperNavView: {
     elevation: 2,

@@ -1,7 +1,15 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
-const WishList = () => {
+const WishList = ({icons, setIcons}) => {
+  const navigate = useNavigation();
+
+    const openRecent = () => {
+        navigate.navigate("recentvisit")
+        setIcons("recentvisit")
+    }
+
   return (
     <View style={styles.count}>
       <View style={styles.main}>
@@ -11,26 +19,28 @@ const WishList = () => {
         <View style={styles.wishListView}>
           <Text style={styles.heading}>Wishlists</Text>
           <View style={styles.wishListGrids}>
-            <View style={styles.gridBox}>
-              <View style={styles.grid}>
-                <View style={styles.imageView}>
-                  <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+            <Pressable onPress={()=>{openRecent()}}>
+              <View style={styles.gridBox}>
+                <View style={styles.grid}>
+                  <View style={styles.imageView}>
+                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+                  </View>
+                  <View style={styles.imageView}>
+                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+                  </View>
+                  <View style={styles.imageView}>
+                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+                  </View>
+                  <View style={styles.imageView}>
+                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+                  </View>
                 </View>
-                <View style={styles.imageView}>
-                  <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                </View>
-                <View style={styles.imageView}>
-                  <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                </View>
-                <View style={styles.imageView}>
-                  <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+                <View style={styles.gridBoxTextView}>
+                  <Text style={styles.gridBoxTitle}>Recently Viewed</Text>
+                  <Text style={styles.gridBoxSubTitle}>Today</Text>
                 </View>
               </View>
-              <View style={styles.gridBoxTextView}>
-                <Text style={styles.gridBoxTitle}>Recently Viewed</Text>
-                <Text style={styles.gridBoxSubTitle}>Today</Text>
-              </View>
-            </View>
+            </Pressable>
             <View style={styles.gridBox}>
               <View style={styles.grid}>
                 <View style={styles.imageView2}>
@@ -54,7 +64,7 @@ export default WishList
 const styles = StyleSheet.create({
   count: {
     flex: 1,
-    backgroundColor:"white"
+    backgroundColor: "white"
   },
   main: {
     flex: 1,
@@ -87,10 +97,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   gridBox: {
-    elevation:4,
-    shadowColor:"black",
-    shadowOpacity:0.25,
-    shadowOffset:{width:0,height:2},
+    elevation: 4,
+    shadowColor: "black",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
     // shadowRadius:29
   },
   grid: {
