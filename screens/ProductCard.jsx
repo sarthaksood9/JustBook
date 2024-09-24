@@ -6,14 +6,19 @@ import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/Feather';
 import Icon5 from 'react-native-vector-icons/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const ProductCard = ({ icons, setIcons }) => {
     const navigate = useNavigation();
 
     const handleBackBtn = () => {
         navigate.navigate("rooms"),
-        setIcons("rooms")
+            setIcons("rooms")
     }
+
+    const item = useSelector(state => state.product.item);
+
+    console.log(item);
     return (
         <>
             <View style={styles.navBtnsOverlAy}>
@@ -33,13 +38,12 @@ const ProductCard = ({ icons, setIcons }) => {
             </View>
             <View style={styles.main}>
                 <View style={styles.ImageView}>
-                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNTQ0NTEyMzEwMTI3NDg1MQ%3D%3D/original/bd73f0f8-9057-4bbc-ad70-1db13eb5c03f.png?im_w=1440&im_q=highq" }} />
+                    <Image style={styles.img} source={{ uri: item.imgUrl }} />
                 </View>
                 <View style={styles.contantView}>
                     <View style={styles.heading}>
                         <Text style={styles.headingText}>
-                            Stay in Prince's Purple
-                            Rain house
+                            {item.name}
                         </Text>
                     </View>
                     <View style={styles.infoView}>
@@ -47,33 +51,24 @@ const ProductCard = ({ icons, setIcons }) => {
                             <Image style={styles.infoImg} source={{ uri: "https://a0.muscache.com/im/pictures/user/User-571409646/original/ea5debfb-2394-444c-ae7a-e30e13363e59.jpeg?im_w=240" }} />
                         </View>
                         <View style={styles.infoTextView}>
-                            <Text style={styles.infoHostText}>Hosted by Wendy And Lisa</Text>
-                            <Text style={styles.infoClubText}>Members of The Revolution</Text>
+                            <Text style={styles.infoHostText}>{item.hostedBy}</Text>
+                            <Text style={styles.infoClubText}>{item.club}</Text>
                         </View>
                     </View>
                     <View style={styles.featView}>
-                        <View style={styles.feat}>
-                            <View style={styles.featIconView}>
-                                <Icon name="bed-outline" size={30} style={styles.featIcon} />
-                            </View>
-                            <View style={styles.featTextView}>
-                                <Text style={styles.featHostText}>Sleep like The Kid himself</Text>
-                                <Text style={styles.featClubText}>Stay overnight in The Kid's bedroom, where he composed our tracks.</Text>
-                            </View>
-                        </View>
-                        <View style={styles.feat}>
-                            <View style={styles.featIconView}>
-                                <Icon2 name="movie-open-check-outline" size={30} style={styles.featIcon} />
-                            </View>
-                            <View style={styles.featTextView}>
-                                <Text style={styles.featHostText}>
-                                    Get a look into Prince's world
-                                </Text>
-                                <Text style={styles.featClubText}>
-                                    Enjoy a private tour of the Purple Rain house filled with Prince's keepsakes.
-                                </Text>
-                            </View>
-                        </View>
+                        {item.features.map((feature, index) => {
+                            return (
+                                <View style={styles.feat}>
+                                    <View style={styles.featIconView}>
+                                        <Icon name="bed-outline" size={30} style={styles.featIcon} />
+                                    </View>
+                                    <View style={styles.featTextView}>
+                                        <Text style={styles.featHostText}>{feature.name}</Text>
+                                        <Text style={styles.featClubText}>{feature.description}</Text>
+                                    </View>
+                                </View>
+                            )
+                        })}
                     </View>
                 </View>
             </View>

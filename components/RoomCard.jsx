@@ -3,16 +3,25 @@ import React from 'react'
 import { hotelDummyData } from '../Data/hotels'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { selectProduct } from '../redux/Product/actions';
 
 const RoomCard = ({ item, icons, setIcons }) => {
+
     const navigate = useNavigation();
 
     const handleCardBtn = () => {
         navigate.navigate("productcard")
         setIcons("productcard")
     }
+
+
+    const dispatch=useDispatch();
+
+
+
     return (
-        <Pressable onPress={() => { handleCardBtn() }}>
+        <Pressable onPress={() => { handleCardBtn();dispatch(selectProduct(item)) }}>
             <View style={styles.cont}>
                 <View style={styles.imageView} >
                     <Image style={styles.image} source={{ uri: item.imgUrl }} />

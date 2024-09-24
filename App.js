@@ -16,10 +16,14 @@ import BottomNav from './components/BottomNav';
 import { useState } from 'react';
 import WishList from './screens/WishList';
 import ProductCard from './screens/ProductCard';
+import { Provider } from 'react-redux';
+import store from './redux/WishList/store';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
@@ -29,40 +33,41 @@ export default function App() {
 
   const [inputVal, setInputVal] = useState("");
 
-  const RenderRooms=()=>{
+  const RenderRooms = () => {
     return <Rooms inputVal={inputVal} setInputVal={setInputVal} icons={icons} setIcons={setIcons} />
   }
-  const RenderPools=()=>{
+  const RenderPools = () => {
     return <Pools inputVal={inputVal} setInputVal={setInputVal} icons={icons} setIcons={setIcons} />
   }
-  const RenderProductCard=()=>{
+  const RenderProductCard = () => {
     return <ProductCard icons={icons} setIcons={setIcons} />
   }
 
   return (
-    <NavigationContainer independent={true}>
-      <StatusBar style='dark'></StatusBar>
-      <View style={styles.container}>
-        <View style={styles.main}>
-          {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
-            <Search inputVal={inputVal} setInputVal={setInputVal} />
-            <UpperNav icons={icons} setIcons={setIcons} />
-          </View>}
-          <Stack.Navigator>
-            <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
-            <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
-            <Stack.Screen name="wishlist" component={WishList} options={{ headerShown: false }} />
-            <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
-            <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
-            <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
-          </Stack.Navigator>
+    <Provider store={store}>
+      <NavigationContainer independent={true}>
+        <StatusBar style='dark'></StatusBar>
+        <View style={styles.container}>
+          <View style={styles.main}>
+            {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
+              <Search inputVal={inputVal} setInputVal={setInputVal} />
+              <UpperNav icons={icons} setIcons={setIcons} />
+            </View>}
+            <Stack.Navigator>
+              <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
+              <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
+              <Stack.Screen name="wishlist" component={WishList} options={{ headerShown: false }} />
+              <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
+              <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
+              <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+              <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
+            </Stack.Navigator>
+          </View>
+          <BottomNav icons={icons} setIcons={setIcons} />
+          {/* {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />} */}
         </View>
-         <BottomNav icons={icons} setIcons={setIcons} />
-        {/* {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />} */}
-      </View>
-    </NavigationContainer>
-
+      </NavigationContainer>
+    </Provider>
 
   );
 }

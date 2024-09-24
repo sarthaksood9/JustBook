@@ -6,8 +6,10 @@ import PoolCard from '../components/PoolCard';
 import { hotelDummyData } from '../Data/hotels';
 import useDebounce from '../hooks/useDebounce';
 import ThreeDotsLoading from '../components/ThreeDotsLoading';
+import { useSelector } from 'react-redux';
 
 const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
+
 
   const [data, setData] = useState(hotelDummyData);
 
