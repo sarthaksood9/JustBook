@@ -6,7 +6,7 @@ import PoolCard from '../components/PoolCard';
 import { hotelDummyData } from '../Data/hotels';
 import useDebounce from '../hooks/useDebounce';
 
-const Rooms = ({ inputVal, setInputVal }) => {
+const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
 
   const [data, setData] = useState(hotelDummyData);
 
@@ -49,7 +49,7 @@ const Rooms = ({ inputVal, setInputVal }) => {
 
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <RoomCard item={item} />
+    return <RoomCard item={item} icons={icons} setIcons={setIcons} />
   }
 
 

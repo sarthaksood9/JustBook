@@ -44,7 +44,7 @@ export default function App() {
       <StatusBar style='dark'></StatusBar>
       <View style={styles.container}>
         <View style={styles.main}>
-          {(icons === "rooms" || icons === "pools" || icons !== "productcard") && <View style={styles.upperNavView}>
+          {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
             <Search inputVal={inputVal} setInputVal={setInputVal} />
             <UpperNav icons={icons} setIcons={setIcons} />
           </View>}
