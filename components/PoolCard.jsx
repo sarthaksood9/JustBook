@@ -2,23 +2,32 @@ import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native
 import React from 'react'
 import { hotelDummyData } from '../Data/hotels'
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
-const PoolCard = ({ item }) => {
+const PoolCard = ({ item,setIcons, icons }) => {
+    const navigate = useNavigation();
+
+    const handleCardBtn = () => {
+        navigate.navigate("productcard")
+            setIcons("productcard")
+    }
     return (
-        <View style={styles.cont}>
-            <View style={styles.imageView} >
-                <Image style={styles.image} source={{uri:item.imgUrl}} />
-                <View style={styles.FlotingIcon}>
-                    <Icon name="share" size={25} style={{ fontWeight: "bold" }} />
+        <Pressable onPress={() => { handleCardBtn() }}>
+            <View style={styles.cont}>
+                <View style={styles.imageView} >
+                    <Image style={styles.image} source={{ uri: item.imgUrl }} />
+                    <View style={styles.FlotingIcon}>
+                        <Icon name="share" size={25} style={{ fontWeight: "bold" }} />
+                    </View>
+                </View>
+                <View style={styles.textview}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Text style={styles.place}>{item.place}</Text>
+                    <Text style={styles.date}>{item.date}</Text>
+                    <Text style={styles.price}>{item.price}</Text>
                 </View>
             </View>
-            <View style={styles.textview}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.place}>{item.place}</Text>
-                <Text style={styles.date}>{item.date}</Text>
-                <Text style={styles.price}>{item.price}</Text>
-            </View>
-        </View>
+        </Pressable>
     )
 }
 

@@ -4,12 +4,12 @@ import { poolsDummyData } from '../Data/pools';
 import RoomCard from '../components/RoomCard';
 import PoolCard from '../components/PoolCard';
 
-const Pools = () => {
+const Pools = ({icons,setIcons} ) => {
   const data = poolsDummyData;
 
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <PoolCard item={item} />
+    return <PoolCard item={item} icons={icons} setIcons={setIcons}  />
   }
   return (
     <View style={styles.homeCount}>

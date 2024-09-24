@@ -1,14 +1,216 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/MaterialIcons';
+import Icon4 from 'react-native-vector-icons/Feather';
+import Icon5 from 'react-native-vector-icons/EvilIcons';
+import { useNavigation } from '@react-navigation/native';
 
-const ProductCard = () => {
-  return (
-    <View>
-      <Text>ProductCard</Text>
-    </View>
-  )
+const ProductCard = ({ icons, setIcons }) => {
+    const navigate = useNavigation();
+
+    const handleBackBtn = () => {
+        navigate.navigate("rooms"),
+        setIcons("rooms")
+    }
+    return (
+        <>
+            <View style={styles.navBtnsOverlAy}>
+                <Pressable onPress={() => { handleBackBtn("rooms") }}>
+                    <View style={styles.BtnView}>
+                        <Icon3 name="keyboard-arrow-left" style={styles.BackBtn} />
+                    </View>
+                </Pressable>
+                <View style={styles.SWBtnView}>
+                    <View style={styles.BtnView}>
+                        <Icon name="share-outline" style={styles.sharebBtn} />
+                    </View>
+                    <View style={styles.BtnView}>
+                        <Icon5 name="heart" style={styles.wishBtn} />
+                    </View>
+                </View>
+            </View>
+            <View style={styles.main}>
+                <View style={styles.ImageView}>
+                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNTQ0NTEyMzEwMTI3NDg1MQ%3D%3D/original/bd73f0f8-9057-4bbc-ad70-1db13eb5c03f.png?im_w=1440&im_q=highq" }} />
+                </View>
+                <View style={styles.contantView}>
+                    <View style={styles.heading}>
+                        <Text style={styles.headingText}>
+                            Stay in Prince's Purple
+                            Rain house
+                        </Text>
+                    </View>
+                    <View style={styles.infoView}>
+                        <View style={styles.infoImageView}>
+                            <Image style={styles.infoImg} source={{ uri: "https://a0.muscache.com/im/pictures/user/User-571409646/original/ea5debfb-2394-444c-ae7a-e30e13363e59.jpeg?im_w=240" }} />
+                        </View>
+                        <View style={styles.infoTextView}>
+                            <Text style={styles.infoHostText}>Hosted by Wendy And Lisa</Text>
+                            <Text style={styles.infoClubText}>Members of The Revolution</Text>
+                        </View>
+                    </View>
+                    <View style={styles.featView}>
+                        <View style={styles.feat}>
+                            <View style={styles.featIconView}>
+                                <Icon name="bed-outline" size={30} style={styles.featIcon} />
+                            </View>
+                            <View style={styles.featTextView}>
+                                <Text style={styles.featHostText}>Sleep like The Kid himself</Text>
+                                <Text style={styles.featClubText}>Stay overnight in The Kid's bedroom, where he composed our tracks.</Text>
+                            </View>
+                        </View>
+                        <View style={styles.feat}>
+                            <View style={styles.featIconView}>
+                                <Icon2 name="movie-open-check-outline" size={30} style={styles.featIcon} />
+                            </View>
+                            <View style={styles.featTextView}>
+                                <Text style={styles.featHostText}>
+                                    Get a look into Prince's world
+                                </Text>
+                                <Text style={styles.featClubText}>
+                                    Enjoy a private tour of the Purple Rain house filled with Prince's keepsakes.
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </>
+    )
 }
+
+// bed-outline
 
 export default ProductCard
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    navBtnsOverlAy: {
+        position: "absolute",
+        top: 10,
+        zIndex: 1,
+        justifyContent: "space-between",
+        flexDirection: "row",
+        width: "100%",
+        paddingHorizontal: 22,
+    },
+    BtnView: {
+        backgroundColor: "white",
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    BackBtn: {
+        fontSize: 30
+    },
+    SWBtnView: {
+        flexDirection: "row",
+        gap: 15
+    },
+    wishBtn: {
+        fontSize: 30
+    },
+    sharebBtn: {
+        fontSize: 21,
+        // width:30,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 6
+    },
+    main: {
+        flex: 1,
+        fontFamily: 'Inter_500Regular',
+        backgroundColor: "white"
+    },
+    ImageView: {
+        height: "40%",
+        width: "100%"
+    },
+    img: {
+        height: "100%",
+        width: "100%"
+    },
+    contantView: {
+        paddingHorizontal: 22,
+        paddingVertical: 12,
+        // gap:12
+    },
+    heading: {
+
+    },
+    headingText: {
+        fontWeight: '500',
+        fontSize: 30.9,
+        fontFamily: 'Inter_500Regular'
+    },
+    infoView: {
+        flexDirection: "row",
+        borderBottomColor: "rgb(117, 114, 119)",
+        paddingVertical: 10,
+        paddingBottom: 15,
+        borderBottomWidth: 0.4
+    },
+    infoImageView: {
+        height: 55,
+        width: 65,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    infoImg: {
+        height: "82%",
+        width: "82%",
+        borderRadius: "50%"
+    },
+    infoTextView: {
+        justifyContent: "space-between",
+        paddingHorizontal: 5,
+        paddingVertical: 4.8
+    },
+    infoHostText: {
+        fontSize: 17.5,
+        fontWeight: "500"
+    },
+    infoClubText: {
+        fontSize: 16,
+        fontWeight: "400",
+        color: "rgb(117, 114, 119)",
+    },
+    featView: {
+        paddingVertical: 20,
+        justifyContent: "space-between",
+        gap: 20
+    },
+    feat: {
+        flexDirection: "row",
+        // backgroundColor:"gray"
+    },
+    featIconView: {
+        // height:40,
+        paddingHorizontal: 10,
+        // backgroundColor:"red"
+    },
+    featIcon: {
+        color: "rgb(127, 114, 119)",
+        fontSize: 32
+    },
+    featTextView: {
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
+        paddingVertical: 4.8,
+        // height:"100%"
+        width: "90%",
+        gap: 10
+    },
+    featHostText: {
+        fontSize: 17.5,
+        fontWeight: "500"
+    },
+    featClubText: {
+        fontSize: 16,
+        fontWeight: "400",
+        color: "rgb(117, 114, 119)",
+        lineHeight: 23
+    },
+
+})

@@ -19,6 +19,11 @@ const BottomNav = ({ setIcons, icons }) => {
         setIcons(name)
     }
 
+    const hendleNavigateRooms2 = () => {
+        navigate.navigate("productcard"),
+        setIcons("productcard")
+    }
+
     return (
         <View style={styles.botNav}>
             <Pressable onPress={() => { hendleNavigateRooms("rooms") }}>
@@ -45,7 +50,7 @@ const BottomNav = ({ setIcons, icons }) => {
                     <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "message" ?"red" : "rgb(141, 141, 141)" }]}>Message</Text>
                 </View>
             </Pressable >
-            <Pressable onPress={() => { hendleNavigateRooms("profile") }}>
+            <Pressable onPress={() => { hendleNavigateRooms2() }}>
                 <View style={styles.iconView}>
                     <Icon5 name="person-circle-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "profile"?"red" : "rgb(141, 141, 141)" }} />
                     <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "profile" ?"red" : "rgb(141, 141, 141)" }]}>Profile</Text>
