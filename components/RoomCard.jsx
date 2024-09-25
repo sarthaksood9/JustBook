@@ -33,7 +33,7 @@ const RoomCard = ({ item, icons, setIcons }) => {
                 <View style={styles.textview}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.price}>{item.price}</Text>
-                    <Text style={styles.place}>{item.place}</Text>
+                    {icons!=="wishview" && <Text style={styles.place}>{item.place}</Text>}
                 </View>
             </View>
         </Pressable>

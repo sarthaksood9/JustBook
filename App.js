@@ -19,6 +19,7 @@ import ProductCard from './screens/ProductCard';
 import { Provider } from 'react-redux';
 import store from './redux/WishList/store';
 import RecentVisit from './screens/RecentVisit';
+import WishView from './screens/WishView';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,9 @@ export default function App() {
   }
   const RenderWishListScreen = () => {
     return <WishList icons={icons} setIcons={setIcons} />
+  }
+  const RenderWishListViewScreen = () => {
+    return <WishView icons={icons} setIcons={setIcons} />
   }
   const RenderRecentVisitScreen = () => {
     return <RecentVisit icons={icons} setIcons={setIcons} />
@@ -70,6 +74,7 @@ export default function App() {
               <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
               <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
               <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
+              <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
           </View>
           {/* <BottomNav icons={icons} setIcons={setIcons} /> */}

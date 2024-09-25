@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const RecentVisit = ({icons, setIcons}) => {
     const state = useSelector(state => state.recentVisit.items)
-    console.log(state)
-
     const [sapData, setSapData] = useState([]);
 
 
@@ -94,8 +92,6 @@ const RecentVisit = ({icons, setIcons}) => {
     //         ...dateArrays // Spread operator to merge date-based arrays into the output
     //     };
     // }
-
-    console.log(sapData);
     const navigate = useNavigation();
 
     const handleBackBtn = () => {

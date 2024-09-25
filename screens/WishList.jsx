@@ -1,14 +1,20 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
-const WishList = ({icons, setIcons}) => {
+const WishList = ({ icons, setIcons }) => {
   const navigate = useNavigation();
 
-    const openRecent = () => {
-        navigate.navigate("recentvisit")
-        setIcons("recentvisit")
-    }
+  const openRecent = (name) => {
+    navigate.navigate(name)
+    setIcons(name)
+  }
+
+  const wishlist = useSelector(state => state.wishlist.items);
+
+
+  const plusImg = "https://static.thenounproject.com/png/877484-200.png"
 
   return (
     <View style={styles.count}>
@@ -19,7 +25,7 @@ const WishList = ({icons, setIcons}) => {
         <View style={styles.wishListView}>
           <Text style={styles.heading}>Wishlists</Text>
           <View style={styles.wishListGrids}>
-            <Pressable onPress={()=>{openRecent()}}>
+            <Pressable onPress={() => { openRecent("recentvisit") }}>
               <View style={styles.gridBox}>
                 <View style={styles.grid}>
                   <View style={styles.imageView}>
@@ -41,17 +47,19 @@ const WishList = ({icons, setIcons}) => {
                 </View>
               </View>
             </Pressable>
-            <View style={styles.gridBox}>
-              <View style={styles.grid}>
-                <View style={styles.imageView2}>
-                  <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
+            <Pressable onPress={() => { openRecent("wishview") }}>
+              <View style={styles.gridBox}>
+                <View style={styles.grid}>
+                  <View style={styles.imageView2}>
+                    <Image style={styles.img} source={{ uri: wishlist.length === 0 ? plusImg : wishlist[0].imgUrl }} />
+                  </View>
+                </View>
+                <View style={styles.gridBoxTextView}>
+                  <Text style={styles.gridBoxTitle}>Icons 2024</Text>
+                  <Text style={styles.gridBoxSubTitle}>{wishlist.length} saved</Text>
                 </View>
               </View>
-              <View style={styles.gridBoxTextView}>
-                <Text style={styles.gridBoxTitle}>Icons 2024</Text>
-                <Text style={styles.gridBoxSubTitle}>3 saved</Text>
-              </View>
-            </View>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -136,7 +144,8 @@ const styles = StyleSheet.create({
   },
   imageView2: {
     height: "100%",
-    width: '100%'
+    width: '100%',
+    justifyContent: "center", alignItems: "center"
   },
   img: {
     height: "100%",

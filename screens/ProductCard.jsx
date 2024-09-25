@@ -19,14 +19,10 @@ const ProductCard = ({ icons, setIcons }) => {
 
     const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
-    const item2 = useSelector(state => state.wishlist);
 
-    console.log(item2);
+    // console.log(item)
 
-    // const state=useSelector(state=>state.recentVisit.items[1])
-    // console.log(state);
-
-    const [wishPress,setWishPress]=useState(false);
+    const [wishPress,setWishPress]=useState(item.wish);
 
     let wishBtn= {
         fontSize: 30,

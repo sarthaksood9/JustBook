@@ -1,4 +1,4 @@
-// src/redux/wishlistActions.js
+
 import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST } from './actionTypes';
 
 export const addItem = (item) => ({
