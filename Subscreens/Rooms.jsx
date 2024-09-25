@@ -31,7 +31,8 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
   //   return () => clearTimeout(delayDebounceFnc);
   // }, [inputVal]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(false);
 
 
   const filterHotels = () => {
@@ -46,7 +47,7 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
   };
 
 
-  useDebounce(filterHotels, 1500, [inputVal],setLoading);
+  // useDebounce(filterHotels, 1500, [inputVal],setLoading);
 
 
 

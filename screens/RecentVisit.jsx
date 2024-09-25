@@ -1,58 +1,62 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime'; // To handle relative time
+import isToday from 'dayjs/plugin/isToday'; // For checking if a date is today
+import isYesterday from 'dayjs/plugin/isYesterday';
 
-const RecentVisit = ({icons, setIcons}) => {
+const RecentVisit = ({ icons, setIcons }) => {
     const state = useSelector(state => state.recentVisit.items)
     const [sapData, setSapData] = useState([]);
 
 
-    useEffect(() => {
-        function categorizeByDate(objects) {
-            const todayArray = { date: "Today", items: [] };
-            const yesterdayArray = { date: "Yesterday", items: [] };
-            const dateArrays = []; // Array to store date-based groups
+    // useEffect(() => {
+    //     function categorizeByDate(objects) {
+    //         const todayArray = { date: "Today", items: [] };
+    //         const yesterdayArray = { date: "Yesterday", items: [] };
+    //         const dateArrays = []; // Array to store date-based groups
 
-            const currentDate = new Date(); // Current date and time
-            const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+    //         const currentDate = new Date(); // Current date and time
+    //         const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
 
-            objects.forEach((obj) => {
-                const dateAdded = new Date(obj.dateAdded); // Convert the date string into a Date object
-                const timeDiff = currentDate - dateAdded; // Difference in time (in milliseconds)
+    //         objects.forEach((obj) => {
+    //             const dateAdded = new Date(obj.dateAdded); // Convert the date string into a Date object
+    //             const timeDiff = currentDate - dateAdded; // Difference in time (in milliseconds)
 
-                if (timeDiff <= oneDay) {
-                    // Added in the last 24 hours
-                    todayArray.items.push(obj);
-                } else if (timeDiff > oneDay && timeDiff <= 2 * oneDay) {
-                    // Added between 24 and 48 hours ago
-                    yesterdayArray.items.push(obj);
-                } else {
-                    // Added more than 48 hours ago, create a readable date format
-                    const readableDate = dateAdded.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+    //             if (timeDiff <= oneDay) {
+    //                 // Added in the last 24 hours
+    //                 todayArray.items.push(obj);
+    //             } else if (timeDiff > oneDay && timeDiff <= 2 * oneDay) {
+    //                 // Added between 24 and 48 hours ago
+    //                 yesterdayArray.items.push(obj);
+    //             } else {
+    //                 // Added more than 48 hours ago, create a readable date format
+    //                 const readableDate = dateAdded.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
 
-                    // Find if there's already a group for this date
-                    let dateGroup = dateArrays.find(group => group.date === readableDate);
-                    if (!dateGroup) {
-                        dateGroup = { date: readableDate, items: [] };
-                        dateArrays.push(dateGroup);
-                    }
-                    dateGroup.items.push(obj);
-                }
-            });
+    //                 // Find if there's already a group for this date
+    //                 let dateGroup = dateArrays.find(group => group.date === readableDate);
+    //                 if (!dateGroup) {
+    //                     dateGroup = { date: readableDate, items: [] };
+    //                     dateArrays.push(dateGroup);
+    //                 }
+    //                 dateGroup.items.push(obj);
+    //             }
+    //         });
 
-            // Collect all date groups together
-            const result = [];
-            if (todayArray.items.length > 0) result.push(todayArray);
-            if (yesterdayArray.items.length > 0) result.push(yesterdayArray);
-            result.push(...dateArrays); // Spread to merge date-based arrays
+    //         // Collect all date groups together
+    //         const result = [];
+    //         if (todayArray.items.length > 0) result.push(todayArray);
+    //         if (yesterdayArray.items.length > 0) result.push(yesterdayArray);
+    //         result.push(...dateArrays); // Spread to merge date-based arrays
 
-            return result;
-        }
-        const newData = categorizeByDate(state);
-        setSapData(newData);
-    }, [])
+    //         return result;
+    //     }
+    //     const newData = categorizeByDate(state);
+    //     setSapData(newData);
+    // }, [])
 
 
 
@@ -92,11 +96,59 @@ const RecentVisit = ({icons, setIcons}) => {
     //         ...dateArrays // Spread operator to merge date-based arrays into the output
     //     };
     // }
+
+
+    dayjs.extend(relativeTime);
+    dayjs.extend(isToday);
+    dayjs.extend(isYesterday);
+
+    useEffect(() => {
+        function categorizeByDate(objects) {
+            const todayArray = { date: "Today", items: [] };
+            const yesterdayArray = { date: "Yesterday", items: [] };
+            const dateArrays = []; // Array to store date-based groups
+
+            const currentDate = dayjs(); // Current date and time
+
+            objects.forEach((obj) => {
+                const dateAdded = dayjs(obj.dateAdded); // Parse date using day.js
+
+                if (dateAdded.isToday()) {
+                    // Added today
+                    todayArray.items.push(obj);
+                } else if (dateAdded.isYesterday()) {
+                    // Added yesterday
+                    yesterdayArray.items.push(obj);
+                } else {
+                    // Added more than 2 days ago, format the date
+                    const readableDate = dateAdded.format('MMMM D, YYYY'); // Format the date
+
+                    // Find if there's already a group for this date
+                    let dateGroup = dateArrays.find(group => group.date === readableDate);
+                    if (!dateGroup) {
+                        dateGroup = { date: readableDate, items: [] };
+                        dateArrays.push(dateGroup);
+                    }
+                    dateGroup.items.push(obj);
+                }
+            });
+
+            const result = [];
+            if (todayArray.items.length > 0) result.push(todayArray);
+            if (yesterdayArray.items.length > 0) result.push(yesterdayArray);
+            result.push(...dateArrays); // Spread to merge date-based arrays
+
+            return result;
+        }
+
+        const newData = categorizeByDate(state);
+        setSapData(newData);
+    }, []);
     const navigate = useNavigation();
 
     const handleBackBtn = () => {
         navigate.navigate("wishlist")
-            setIcons("wishlist")
+        setIcons("wishlist")
     }
 
 
@@ -108,35 +160,38 @@ const RecentVisit = ({icons, setIcons}) => {
                 </Pressable>
                 <Text style={styles.editBtn}>Edit</Text>
             </View>
-            <View style={styles.wishListView}>
-                <Text style={styles.heading}>Recently viewed</Text>
-                {sapData.map((item, index) => {
-                    return (
-                        <View style={styles.wishListGridsView}>
-                            <Text style={styles.today}>{item.date}</Text>
-                            <View style={styles.wishListGrids}>
-                                {item?.items.map((card) => {
-                                    return (
-                                        <View style={styles.gridBox}>
-                                            <View style={styles.grid}>
-                                                <View style={styles.imageView2}>
-                                                    <Image style={styles.img} source={{ uri: card.imgUrl }} />
+            <ScrollView showsVerticalScrollIndicator={false} >
+
+                <View style={styles.wishListView}>
+                    <Text style={styles.heading}>Recently viewed</Text>
+                    {sapData.map((item, index) => {
+                        return (
+                            <View style={styles.wishListGridsView}>
+                                <Text style={styles.today}>{item.date}</Text>
+                                <View style={styles.wishListGrids}>
+                                    {item?.items.map((card) => {
+                                        return (
+                                            <View style={styles.gridBox}>
+                                                <View style={styles.grid}>
+                                                    <View style={styles.imageView2}>
+                                                        <Image style={styles.img} source={{ uri: card.imgUrl }} />
+                                                    </View>
+                                                </View>
+                                                <View style={styles.gridBoxTextView}>
+                                                    <Text style={styles.gridBoxTitle}>{card.name}</Text>
+                                                    <Text style={styles.gridBoxSubTitle}>{card.hostedBy}</Text>
                                                 </View>
                                             </View>
-                                            <View style={styles.gridBoxTextView}>
-                                                <Text style={styles.gridBoxTitle}>{card.name}</Text>
-                                                <Text style={styles.gridBoxSubTitle}>{card.hostedBy}</Text>
-                                            </View>
-                                        </View>
 
-                                    )
-                                })}
+                                        )
+                                    })}
+                                </View>
+
                             </View>
-
-                        </View>
-                    )
-                })}
-            </View>
+                        )
+                    })}
+                </View>
+            </ScrollView>
         </View>
     )
 }
@@ -148,7 +203,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         paddingVertical: 10,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        position: "relative"
 
     },
     BackBtn: {
@@ -156,6 +212,7 @@ const styles = StyleSheet.create({
         marginLeft: -5.7
     },
     editView: {
+        position: "fixed",
         width: "100%",
         alignItems: "flex-end",
         flexDirection: "row",
@@ -171,14 +228,15 @@ const styles = StyleSheet.create({
     },
     wishListView: {
         // backgroundColor:"blue",
-        marginTop: 22
+        marginTop: 17
     },
     heading: {
         fontSize: 30,
-        fontWeight: "600"
+        fontWeight: "600",
+        marginBottom:18
     },
     wishListGridsView: {
-        paddingVertical: 25
+        paddingVertical: 7
     },
     wishListGrids: {
         marginVertical: 10,
@@ -188,7 +246,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
     gridBox: {
-        
+
         // shadowRadius:29
     },
     grid: {

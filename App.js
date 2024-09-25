@@ -53,7 +53,6 @@ export default function App() {
   const RenderProductCard = () => {
     return <ProductCard icons={icons} setIcons={setIcons} />
   }
-  console.log(icons);
 
   return (
     <Provider store={store}>

@@ -12,6 +12,7 @@ const WishList = ({ icons, setIcons }) => {
   }
 
   const wishlist = useSelector(state => state.wishlist.items);
+  const recent = useSelector(state => state.recentVisit.items);
 
 
   const plusImg = "https://static.thenounproject.com/png/877484-200.png"
@@ -28,18 +29,28 @@ const WishList = ({ icons, setIcons }) => {
             <Pressable onPress={() => { openRecent("recentvisit") }}>
               <View style={styles.gridBox}>
                 <View style={styles.grid}>
-                  <View style={styles.imageView}>
-                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                  </View>
-                  <View style={styles.imageView}>
-                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                  </View>
-                  <View style={styles.imageView}>
-                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                  </View>
-                  <View style={styles.imageView}>
-                    <Image style={styles.img} source={{ uri: "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzE3Nzg1NDA2MjM5NzY2NQ%3D%3D/original/6989d581-3f67-4cd9-8cb6-5f5c226aedc6.png?im_w=1440&im_q=highq" }} />
-                  </View>
+                {recent.length===0 &&<View style={styles.imageView}>
+                    
+                    </View>}
+                  {recent.map((item, index) => {
+                    return (
+                      <>
+                        <View style={styles.imageView}>
+                          <Image style={styles.img} source={{ uri: item.imgUrl }} />
+                        </View>
+                      </>
+                    )
+                  })}
+                  {recent.length<=2 &&<View style={styles.imageView}>
+                    
+                  </View>}
+                  {recent.length<=3 &&<View style={styles.imageView}>
+                   
+                  </View>}
+                  {recent.length<=4 &&<View style={styles.imageView}>
+                    
+                  </View>}
+                  
                 </View>
                 <View style={styles.gridBoxTextView}>
                   <Text style={styles.gridBoxTitle}>Recently Viewed</Text>
@@ -140,7 +151,8 @@ const styles = StyleSheet.create({
   imageView: {
     height: 75,
     width: 75,
-    overflow: "hidden"
+    overflow: "hidden",
+    backgroundColor:"rgb(157, 157, 157)"
   },
   imageView2: {
     height: "100%",
