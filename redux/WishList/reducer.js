@@ -1,5 +1,5 @@
 
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST } from './actionTypes';
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST, ADD_NOTE_TO_WISHLIST_ITEM } from './actionTypes';
 
 const initialState = {
   items: [],
@@ -32,6 +32,15 @@ export const wishlistReducer = (state = initialState, action) => {
         items: [],
       };
 
+    case ADD_NOTE_TO_WISHLIST_ITEM:
+      return {
+        ...state,
+        items: state.items.map(item =>
+          item.id === action.payload.id
+            ? { ...item, note: action.payload.note }
+            : item
+        ),
+      };
     default:
       return state;
   }

@@ -20,12 +20,14 @@ import { Provider } from 'react-redux';
 import store from './redux/WishList/store';
 import RecentVisit from './screens/RecentVisit';
 import WishView from './screens/WishView';
+import { SafeAreaView } from 'react-native';
+import BottomDrowr from './components/BottomDrowr';
 
 const Stack = createStackNavigator();
 
 export default function App() {
 
-  
+
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
@@ -55,32 +57,35 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <NavigationContainer independent={true}>
-        <StatusBar style='dark'></StatusBar>
-        <View style={styles.container}>
-          <View style={styles.main}>
-            {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
-              <Search inputVal={inputVal} setInputVal={setInputVal} />
-              <UpperNav icons={icons} setIcons={setIcons} />
-            </View>}
-            <Stack.Navigator>
-              <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
-              <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
-              <Stack.Screen name="wishlist" component={RenderWishListScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
-              <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
-              <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
-              <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
-              <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
-              <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false }} />
-            </Stack.Navigator>
+    <SafeAreaView style={{flex:1}}>
+      <Provider store={store}>
+        <NavigationContainer independent={true}>
+        <StatusBar translucent backgroundColor="transparent" />
+          <View style={styles.container}>
+            <View style={styles.main}>
+              {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
+                <Search inputVal={inputVal} setInputVal={setInputVal} />
+                <UpperNav icons={icons} setIcons={setIcons} />
+              </View>}
+              <Stack.Navigator>
+                <Stack.Screen name="rooms" component={RenderRooms} options={{ headerShown: false }} />
+                <Stack.Screen name="pools" component={RenderPools} options={{ headerShown: false }} />
+                <Stack.Screen name="wishlist" component={RenderWishListScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
+                <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
+                <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+                <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
+                <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false}} />
+              </Stack.Navigator>
+            </View>
+            {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
+            {( icons!=="productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
+            
           </View>
-          {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
-          {(icons !== "recentvisit" ) && <BottomNav icons={icons} setIcons={setIcons} />}
-        </View>
-      </NavigationContainer>
-    </Provider>
+        </NavigationContainer>
+      </Provider>
+    </SafeAreaView>
 
   );
 }
@@ -88,10 +93,11 @@ export default function App() {
 const styles = StyleSheet.create({
 
   main: {
-    marginTop: 52,
+    // marginTop: 52,
     position: "relative",
     flex: 1,
-    backgroundColor:"white"
+    backgroundColor: "white",
+    marginBottom:-30
   },
   upperNavView: {
     elevation: 2,

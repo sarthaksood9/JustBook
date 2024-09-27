@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,9 @@ const WishList = ({ icons, setIcons }) => {
   const recent = useSelector(state => state.recentVisit.items);
 
 
-  const plusImg = "https://static.thenounproject.com/png/877484-200.png"
+  const plusImg = "https://static.thenounproject.com/png/877484-200.png";
+
+  
 
   return (
     <View style={styles.count}>

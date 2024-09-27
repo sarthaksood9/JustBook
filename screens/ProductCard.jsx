@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,16 +22,16 @@ const ProductCard = ({ icons, setIcons }) => {
 
     // console.log(item)
 
-    const [wishPress,setWishPress]=useState(item.wish);
+    const [wishPress, setWishPress] = useState(item.wish);
 
-    let wishBtn= {
+    let wishBtn = {
         fontSize: 30,
-        backgroundColor:wishPress?"#f13333e0":"white",
-        color:wishPress?"#fff":"black",
-        paddingVertical:4
+        backgroundColor: wishPress ? "#f13333e0" : "white",
+        color: wishPress ? "#fff" : "black",
+        paddingVertical: 4
     }
     return (
-        <>
+        <View style={{ position: "relative", flex: 1 }}>
             <View style={styles.navBtnsOverlAy}>
                 <Pressable onPress={() => { handleBackBtn("rooms") }}>
                     <View style={styles.BtnView}>
@@ -43,7 +43,7 @@ const ProductCard = ({ icons, setIcons }) => {
                         <Icon name="share-outline" style={styles.sharebBtn} />
                     </View>
                     <View style={styles.BtnView}>
-                        <Pressable onPress={() => { {!wishPress?dispatch(addItem(item)):dispatch(removeItem(item.id))};setWishPress(!wishPress) }}>
+                        <Pressable onPress={() => { { !wishPress ? dispatch(addItem(item)) : dispatch(removeItem(item.id)) }; setWishPress(!wishPress) }}>
                             <Icon5 name="heart" style={[wishBtn]} />
                         </Pressable>
                     </View>
@@ -85,7 +85,15 @@ const ProductCard = ({ icons, setIcons }) => {
                     </View>
                 </View>
             </View>
-        </>
+            <View style={styles.botNav}>
+                <View style={styles.btnView}>
+                    <Text style={styles.clearBtn}>Coming October</Text>
+                    <TouchableOpacity style={styles.saveButton}>
+                        <Text style={styles.saveButtonText}>Notify me</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
     )
 }
 
@@ -108,8 +116,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: "center",
         alignItems: "center",
-        overflow:"hidden",
-        
+        overflow: "hidden",
+
     },
     BackBtn: {
         fontSize: 30
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 15
     },
-    
+
     sharebBtn: {
         fontSize: 21,
         // width:30,
@@ -129,7 +137,8 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         fontFamily: 'Inter_500Regular',
-        backgroundColor: "white"
+        backgroundColor: "white",
+        marginTop: -10
     },
     ImageView: {
         height: "40%",
@@ -220,5 +229,47 @@ const styles = StyleSheet.create({
         color: "rgb(117, 114, 119)",
         lineHeight: 23
     },
+    botNav: {
+        position: "absolute",
+        bottom: 0,
+        zIndex: 120,
+        flexDirection: "row",
+        // justifyContent: "space-around",
+        // backgroundColor: "blue",
+        width: "100%",
+        borderTopColor: "black",
+        borderTopWidth: 0.2,
+        shadowColor: "black",
+        shadowOpacity: 0.10,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 8,
+        overflow: Platform.OS === 'android' ? "hidden" : "",
+        paddingHorizontal: 20,
+        paddingBottom:10
+
+    },
+    btnView: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 18,
+        width:"100%"
+    },
+    clearBtn: {
+        fontSize: 18,
+        fontWeight: "500",
+        // textDecorationLine: "underline"
+    },
+    saveButton: {
+        paddingHorizontal: 35,
+        paddingVertical: 14.6,
+        borderRadius: 8,
+        backgroundColor: "#f44d6efc"
+    },
+    saveButtonText: {
+        color: "white",
+        fontWeight:"600",
+        fontSize:17
+    }
 
 })

@@ -1,5 +1,5 @@
 
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST } from './actionTypes';
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST, ADD_NOTE_TO_WISHLIST_ITEM } from './actionTypes';
 
 export const addItem = (item) => ({
   type: ADD_TO_WISHLIST,
@@ -13,4 +13,9 @@ export const removeItem = (id) => ({
 
 export const clearWishlist = () => ({
   type: CLEAR_WISHLIST,
+});
+
+export const addNoteToWishlistItem = (id, note) => ({
+  type: ADD_NOTE_TO_WISHLIST_ITEM,
+  payload: { id, note },
 });

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, FlatList, Pressable } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, Image, Easing, TouchableOpacity, StyleSheet, FlatList, Pressable, Animated } from 'react-native';
 import { useSelector } from 'react-redux';
 import useDebounce from '../hooks/useDebounce';
 import RoomCard from '../components/RoomCard';
@@ -7,29 +7,63 @@ import ThreeDotsLoading from '../components/ThreeDotsLoading';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import BottomDrowr from '../components/BottomDrowr';
 
 const WishView = ({ icons, setIcons }) => {
 
+    // fatching data from redux-
+
     const wishlist = useSelector(state => state.wishlist.items);
 
-    const [data, setData] = useState(wishlist);
+
+    // usestates---
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigation();
+    
 
+    // navigation---
+    const navigate = useNavigation();
     const handleBackBtn = () => {
         navigate.navigate("wishlist")
         setIcons("wishlist")
     }
 
+    // modelview handlers----
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [slideAnim] = useState(new Animated.Value(300));
+
+    const openDrawer = () => {
+        setModalVisible(true);
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+
+    const [notes, setNotes] = useState();
+
+
+    useEffect(() => {
+        setData(wishlist);
+    }, [notes])
+
     const renderCards = (itemData) => {
         const item = itemData.item;
+        setNotes(item.note);
+
+        console.log(notes);
         return (
             <>
                 <RoomCard item={item} icons={icons} setIcons={setIcons} />
-                <TouchableOpacity style={styles.input}>
-                    <Text style={styles.inputText}>Add note</Text>
+                <TouchableOpacity onPress={openDrawer} style={styles.input}>
+                    <Text style={styles.inputText}>{item.note ? `${notes}` : "Add note"}</Text>
                 </TouchableOpacity>
+                <BottomDrowr setNotes={setNotes} val={item.note} id={item.id} modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />
             </>
 
         )
@@ -38,14 +72,13 @@ const WishView = ({ icons, setIcons }) => {
         <View style={styles.container}>
             <View style={styles.editView}>
                 <Pressable onPress={() => { handleBackBtn() }}>
-                    <Icon3 name="keyboard-arrow-left" style={styles.BackBtn}  />
-                    
+                    <Icon3 name="keyboard-arrow-left" style={styles.BackBtn} />
+
                 </Pressable>
-                <Icon name="dots-three-horizontal"  style={{fontSize:22}} />
+                <Icon name="dots-three-horizontal" style={{ fontSize: 22 }} />
             </View>
             <Text style={styles.title}>Goods</Text>
 
-            {/* Buttons */}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Dates · Guests</Text>
@@ -55,7 +88,6 @@ const WishView = ({ icons, setIcons }) => {
                 </TouchableOpacity>
             </View>
 
-            {/* Image */}
             {loading ? <ThreeDotsLoading /> : <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{ marginHorizontal: 18 }}
@@ -63,10 +95,6 @@ const WishView = ({ icons, setIcons }) => {
                 key={item => item.name}
                 renderItem={renderCards}
             />}
-
-            {/* Input */}
-
-
 
         </View>
     );
@@ -118,7 +146,7 @@ const styles = StyleSheet.create({
         right: 16,
         width: 24,
         height: 24,
-        backgroundColor: 'red', // You'll likely want a heart icon here
+        backgroundColor: 'red',
         borderRadius: 12,
     },
     description: {

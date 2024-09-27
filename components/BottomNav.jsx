@@ -61,7 +61,7 @@ export default BottomNav
 const styles = StyleSheet.create({
     botNav: {
         position: "absolute",
-        bottom: 0,
+        bottom: -30,
         zIndex: 100,
         flexDirection: "row",
         justifyContent: "space-around",
