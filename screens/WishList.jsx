@@ -17,7 +17,7 @@ const WishList = ({ icons, setIcons }) => {
 
   const plusImg = "https://static.thenounproject.com/png/877484-200.png";
 
-  
+
 
   return (
     <View style={styles.count}>
@@ -31,28 +31,28 @@ const WishList = ({ icons, setIcons }) => {
             <Pressable onPress={() => { openRecent("recentvisit") }}>
               <View style={styles.gridBox}>
                 <View style={styles.grid}>
-                {recent.length===0 &&<View style={styles.imageView}>
-                    
-                    </View>}
+                  {recent.length === 0 && <View style={styles.imageView}>
+
+                  </View>}
                   {recent.map((item, index) => {
                     return (
-                      <>
-                        <View style={styles.imageView}>
-                          <Image style={styles.img} source={{ uri: item.imgUrl }} />
-                        </View>
-                      </>
+
+                      <View key={index} style={styles.imageView}>
+                        <Image style={styles.img} source={{ uri: item.imgUrl }} />
+                      </View>
+
                     )
                   })}
-                  {recent.length<=2 &&<View style={styles.imageView}>
-                    
+                  {recent.length <= 2 && <View style={styles.imageView}>
+
                   </View>}
-                  {recent.length<=3 &&<View style={styles.imageView}>
-                   
+                  {recent.length <= 3 && <View style={styles.imageView}>
+
                   </View>}
-                  {recent.length<=4 &&<View style={styles.imageView}>
-                    
+                  {recent.length <= 4 && <View style={styles.imageView}>
+
                   </View>}
-                  
+
                 </View>
                 <View style={styles.gridBoxTextView}>
                   <Text style={styles.gridBoxTitle}>Recently Viewed</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     height: 75,
     width: 75,
     overflow: "hidden",
-    backgroundColor:"rgb(157, 157, 157)"
+    backgroundColor: "rgb(157, 157, 157)"
   },
   imageView2: {
     height: "100%",

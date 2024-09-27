@@ -54,14 +54,11 @@ const WishView = ({ icons, setIcons }) => {
 
     const renderCards = (itemData) => {
         const item = itemData.item;
-        setNotes(item.note);
-
-        console.log(notes);
         return (
             <>
                 <RoomCard item={item} icons={icons} setIcons={setIcons} />
                 <TouchableOpacity onPress={openDrawer} style={styles.input}>
-                    <Text style={styles.inputText}>{item.note ? `${notes}` : "Add note"}</Text>
+                    <Text style={styles.inputText}>{item.note ? `${item.note}` : "Add note"}</Text>
                 </TouchableOpacity>
                 <BottomDrowr setNotes={setNotes} val={item.note} id={item.id} modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />
             </>
