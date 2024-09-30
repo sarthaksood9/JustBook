@@ -1,5 +1,10 @@
 
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST, ADD_NOTE_TO_WISHLIST_ITEM } from './actionTypes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, CLEAR_WISHLIST, ADD_NOTE_TO_WISHLIST_ITEM, LOAD_INITIAL_WISHLIST } from './actionTypes';
+
+const saveRecentItemsToStorage = async (item) => {
+  await AsyncStorage.setItem('wishList', JSON.stringify(item));
+};
 
 const initialState = {
   items: [],
@@ -14,6 +19,9 @@ export const wishlistReducer = (state = initialState, action) => {
       if (existingItem) {
         return state;
       }
+
+      const updatedItems = [...state.items, action.payload];
+      saveRecentItemsToStorage(updatedItems);
 
       return {
         ...state,
@@ -40,6 +48,12 @@ export const wishlistReducer = (state = initialState, action) => {
             ? { ...item, note: action.payload.note }
             : item
         ),
+      };
+    case LOAD_INITIAL_WISHLIST:
+
+      return {
+        ...state,
+        items: action.payload,
       };
     default:
       return state;

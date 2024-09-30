@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectProduct } from '../redux/Product/actions';
 import { addToResent } from '../redux/recentVisit/actions';
 
-const RoomCard = ({ item, icons, setIcons }) => {
+const RoomCard = ({ route,item, icons, setIcons }) => {
 
     const navigate = useNavigation();
 
     const handleCardBtn = () => {
-        navigate.navigate("productcard")
+        navigate.navigate("productcard",{name:route})
         setIcons("productcard")
     }
 

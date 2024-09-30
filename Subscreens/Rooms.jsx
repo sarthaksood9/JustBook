@@ -50,10 +50,11 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
   // useDebounce(filterHotels, 1500, [inputVal],setLoading);
 
 
+  const route="rooms"
 
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <RoomCard item={item} icons={icons} setIcons={setIcons} />
+    return <RoomCard route={route} item={item} icons={icons} setIcons={setIcons} />
   }
 
 

@@ -1,7 +1,9 @@
 import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadInitialRecents } from '../redux/recentVisit/actions';
+import { loadInitialWish } from '../redux/WishList/actions';
 
 const WishList = ({ icons, setIcons }) => {
   const navigate = useNavigation();
@@ -16,6 +18,14 @@ const WishList = ({ icons, setIcons }) => {
 
 
   const plusImg = "https://static.thenounproject.com/png/877484-200.png";
+
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadInitialRecents());
+        dispatch(loadInitialWish());
+    }, [dispatch])
 
 
 

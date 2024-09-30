@@ -13,19 +13,29 @@ import Message from './screens/Message';
 import Profile from './screens/Profile';
 import WhishList from './screens/WishList';
 import BottomNav from './components/BottomNav';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import WishList from './screens/WishList';
 import ProductCard from './screens/ProductCard';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import store from './redux/WishList/store';
 import RecentVisit from './screens/RecentVisit';
 import WishView from './screens/WishView';
 import { SafeAreaView } from 'react-native';
 import BottomDrowr from './components/BottomDrowr';
+import { loadInitialState } from './redux/recentVisit/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadInitialRecents } from './redux/recentVisit/actions';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  
+
+  const item = {
+    name: "sarthak",
+    room: "booked"
+  }
 
 
   let [fontsLoaded] = useFonts({
@@ -57,10 +67,10 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <NavigationContainer independent={true}>
-        <StatusBar translucent backgroundColor="transparent" />
+          <StatusBar translucent backgroundColor="transparent" />
           <View style={styles.container}>
             <View style={styles.main}>
               {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
@@ -76,12 +86,12 @@ export default function App() {
                 <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
                 <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
                 <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false}} />
+                <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false, animationEnabled: false }} />
               </Stack.Navigator>
             </View>
             {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
-            {( icons!=="productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
-            
+            {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
+
           </View>
         </NavigationContainer>
       </Provider>
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     backgroundColor: "white",
-    marginBottom:-30
+    marginBottom: -30
   },
   upperNavView: {
     elevation: 2,

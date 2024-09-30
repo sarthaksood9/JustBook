@@ -1,16 +1,20 @@
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'; // To handle relative time
 import isToday from 'dayjs/plugin/isToday'; // For checking if a date is today
 import isYesterday from 'dayjs/plugin/isYesterday';
+import { loadInitialRecents } from '../redux/recentVisit/actions';
+
 
 const RecentVisit = ({ icons, setIcons }) => {
     const state = useSelector(state => state.recentVisit.items)
     const [sapData, setSapData] = useState([]);
+
+    
 
 
     // useEffect(() => {
@@ -166,12 +170,12 @@ const RecentVisit = ({ icons, setIcons }) => {
                     <Text style={styles.heading}>Recently viewed</Text>
                     {sapData.map((item, index) => {
                         return (
-                            <View style={styles.wishListGridsView}>
+                            <View key={index} style={styles.wishListGridsView}>
                                 <Text style={styles.today}>{item.date}</Text>
                                 <View style={styles.wishListGrids}>
-                                    {item?.items.map((card) => {
+                                    {item?.items.map((card, i) => {
                                         return (
-                                            <View style={styles.gridBox}>
+                                            <View key={i} style={styles.gridBox}>
                                                 <View style={styles.grid}>
                                                     <View style={styles.imageView2}>
                                                         <Image style={styles.img} source={{ uri: card.imgUrl }} />
@@ -233,7 +237,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 30,
         fontWeight: "600",
-        marginBottom:18
+        marginBottom: 18
     },
     wishListGridsView: {
         paddingVertical: 7

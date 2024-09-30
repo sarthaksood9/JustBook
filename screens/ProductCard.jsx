@@ -5,16 +5,18 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/Feather';
 import Icon5 from 'react-native-vector-icons/EvilIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, removeItem } from '../redux/WishList/actions';
 
 const ProductCard = ({ icons, setIcons }) => {
     const navigate = useNavigation();
+    const route = useRoute();
+    const { name } = route.params || {};
 
     const handleBackBtn = () => {
-        navigate.navigate("rooms"),
-            setIcons("rooms")
+        navigate.goBack();
+        setIcons(name)
     }
 
     const dispatch = useDispatch();
@@ -245,7 +247,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         overflow: Platform.OS === 'android' ? "hidden" : "",
         paddingHorizontal: 20,
-        paddingBottom:10
+        paddingBottom: 10
 
     },
     btnView: {
@@ -253,7 +255,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         paddingVertical: 18,
-        width:"100%"
+        width: "100%"
     },
     clearBtn: {
         fontSize: 18,
@@ -268,8 +270,8 @@ const styles = StyleSheet.create({
     },
     saveButtonText: {
         color: "white",
-        fontWeight:"600",
-        fontSize:17
+        fontWeight: "600",
+        fontSize: 17
     }
 
 })

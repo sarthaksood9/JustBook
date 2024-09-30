@@ -1,1 +1,2 @@
 export const ADD_TO_RECENT = 'ADD_TO_RECENT';
+export const LOAD_INITIAL_RECENTS = 'LOAD_INITIAL_RECENTS';

@@ -52,11 +52,13 @@ const WishView = ({ icons, setIcons }) => {
         setData(wishlist);
     }, [notes])
 
+    const route="wishview"
+
     const renderCards = (itemData) => {
         const item = itemData.item;
         return (
             <>
-                <RoomCard item={item} icons={icons} setIcons={setIcons} />
+                <RoomCard route={route} item={item} icons={icons} setIcons={setIcons} />
                 <TouchableOpacity onPress={openDrawer} style={styles.input}>
                     <Text style={styles.inputText}>{item.note ? `${item.note}` : "Add note"}</Text>
                 </TouchableOpacity>
