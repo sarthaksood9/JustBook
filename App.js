@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native';
 import UserRoutes from './Routes/UserRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
 
-//j
+//jnn
 
 
 export default function App() {
