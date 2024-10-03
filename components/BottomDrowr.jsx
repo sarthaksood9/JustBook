@@ -82,6 +82,7 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
                                     transform: [{ translateY: slideAnim }],
                                 },
                             ]}
+                            
                         >
                             <Icon name="cross" onPress={closeDrawer} size={20} style={styles.icon} />
 
