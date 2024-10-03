@@ -9,6 +9,8 @@ import { SafeAreaView } from 'react-native';
 import UserRoutes from './Routes/UserRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
 
+
+
 export default function App() {
 
   const [icons, setIcons] = useState("rooms")
