@@ -1,5 +1,5 @@
 // LoginScreen.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -8,6 +8,11 @@ import {
     StyleSheet,
     Platform,
     Image,
+    Modal,
+    Animated,
+    KeyboardAvoidingView,
+    Easing,
+    Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Icon2 from 'react-native-vector-icons/Entypo';
@@ -21,84 +26,151 @@ const LoginDrower = () => {
         console.log('Continue button pressed');
     };
 
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [slideAnim] = useState(new Animated.Value(900));
+
+    const openDrawer = () => {
+        setModalVisible(true);
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    useEffect(()=>{
+        openDrawer();
+    },[])
+
+
+    const closeDrawer = () => {
+        Animated.timing(slideAnim, {
+            toValue: 900,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start(() => setModalVisible(false));
+
+        // navigate.replace('wishview');
+    };
+
+
+    const handleSave = () => {
+        dispatch(addNoteToWishlistItem(id, text));
+        setNotes(text);
+        closeDrawer();
+    };
+    const handleClear = () => {
+        setText("")
+    };
+
     return (
+
+
+
+
         <View style={styles.container}>
-            <View style={styles.TitleView}>
-                <Text style={styles.title}>Log in or sign up</Text>
-                <Icon2 name='cross' style={styles.crossIcon}></Icon2>
-            </View>
+            <Modal
+                visible={modalVisible}
+                transparent
+                animationType="none" // We'll use custom animation with Animated API
+            >
+                <View style={styles.modalBackground}>
+                    {<TouchableOpacity style={styles.overlay} onPress={closeDrawer} />}
+                    {/* <KeyboardAvoidingView behavior='position'> */}
+                        <Animated.View
+                            style={[
+                                styles.drawerContainer,
+                                {
+                                    transform: [{ translateY: slideAnim }],
+                                },
+                            ]}
 
-
-            <View style={styles.uperview}>
-
-
-                <View style={styles.inputView}>
-                    <View style={styles.countryContainer}>
-                        <View style={styles.countryView}>
-                            <Icon name='arrow-down' style={styles.downIcon}></Icon>
-                            <Text style={styles.cr}>Contery/Region</Text>
-                            <View style={styles.countryInputView}>
-                                <Text style={styles.countryText}>{country}</Text>
-                                <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
+                        >
+                            <View style={styles.TitleView}>
+                                <Text style={styles.title}>Log in or sign up</Text>
+                                <Icon2 onPress={closeDrawer} name='cross' style={styles.crossIcon}></Icon2>
                             </View>
-                        </View>
-                    </View>
-                    <TextInput
-                        style={styles.phoneNumberInput}
-                        placeholder="Phone number"
-                        value={phoneNumber}
-                        onChangeText={(text) => setPhoneNumber(text)}
-                        keyboardType="phone-pad"
-                    />
+
+
+                            <View style={styles.uperview}>
+
+
+                                <View style={styles.inputView}>
+                                    <View style={styles.countryContainer}>
+                                        <View style={styles.countryView}>
+                                            <Icon name='arrow-down' style={styles.downIcon}></Icon>
+                                            <Text style={styles.cr}>Contery/Region</Text>
+                                            <View style={styles.countryInputView}>
+                                                <Text style={styles.countryText}>{country}</Text>
+                                                <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <TextInput
+                                        style={styles.phoneNumberInput}
+                                        placeholder="Phone number"
+                                        value={phoneNumber}
+                                        onChangeText={(text) => setPhoneNumber(text)}
+                                        keyboardType="phone-pad"
+                                    />
+                                </View>
+                                <Text style={styles.disclaimerText}>
+                                    We'll call or text to confirm your number. Standard message and data rates apply
+                                </Text>
+                                <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+                                    <Text style={styles.continueButtonText}>Continue</Text>
+                                </TouchableOpacity>
+
+                            </View>
+
+                            <View style={styles.orContainer}>
+                                <View style={styles.lines}></View>
+                                <Text style={styles.orText}>or</Text>
+                                <View style={styles.lines}></View>
+                            </View>
+                            <View style={styles.bottomView}>
+                                <TouchableOpacity style={styles.buttonView}>
+                                    <Image style={styles.logos} source={require("../assets/Images/Logos/Mail.png")} />
+                                    <Text style={styles.btn}>Continue with email</Text>
+                                </TouchableOpacity>
+                                {Platform.OS === 'ios' && (
+                                    <TouchableOpacity style={styles.buttonView}>
+                                        <Image style={{
+                                            height: 22,
+                                            width: 22,
+                                            position: "absolute",
+                                            top: 8,
+                                            left: 14
+                                        }} source={require("../assets/Images/Logos/apple.png")} />
+                                        <Text style={styles.btn}>Continue with Apple</Text>
+                                    </TouchableOpacity>
+                                )}
+                                <TouchableOpacity style={styles.buttonView}>
+                                    <Image style={styles.logos} source={require("../assets/Images/Logos/GoogleLogo.png")} />
+                                    <Text style={styles.btn}>Continue with Google</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.buttonView}>
+                                    <Image style={
+                                        {
+                                            height: 22,
+                                            width: 22,
+                                            position: "absolute",
+                                            top: 8,
+                                            left: 14
+                                        }
+                                    } source={require("../assets/Images/Logos/Facebook.png")} />
+                                    <Text style={styles.btn}>Continue with Facebook</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </Animated.View>
+                    {/* </KeyboardAvoidingView> */}
                 </View>
-                <Text style={styles.disclaimerText}>
-                    We'll call or text to confirm your number. Standard message and data rates apply
-                </Text>
-                <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
-                    <Text style={styles.continueButtonText}>Continue</Text>
-                </TouchableOpacity>
+            </Modal>
 
-            </View>
-
-            <View style={styles.orContainer}>
-                <View style={styles.lines}></View>
-                <Text style={styles.orText}>or</Text>
-                <View style={styles.lines}></View>
-            </View>
-            <View style={styles.bottomView}>
-                <TouchableOpacity style={styles.buttonView}>
-                    <Image style={styles.logos} source={require("../assets/Images/Logos/Mail.png")} />
-                    <Text style={styles.btn}>Continue with email</Text>
-                </TouchableOpacity>
-                {Platform.OS === 'ios' && (
-                    <TouchableOpacity style={styles.buttonView}>
-                        <Image style={{
-                            height: 22,
-                            width: 22,
-                            position: "absolute",
-                            top: 8,
-                            left: 14
-                        }} source={require("../assets/Images/Logos/apple.png")} />
-                        <Text style={styles.btn}>Continue with Apple</Text>
-                    </TouchableOpacity>
-                )}
-                <TouchableOpacity style={styles.buttonView}>
-                    <Image style={styles.logos} source={require("../assets/Images/Logos/GoogleLogo.png")} />
-                    <Text style={styles.btn}>Continue with Google</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonView}>
-                    <Image style={
-                        {
-                            height: 22,
-                            width: 22,
-                            position: "absolute",
-                            top: 8,
-                            left: 14
-                        }
-                    } source={require("../assets/Images/Logos/Facebook.png")} />
-                    <Text style={styles.btn}>Continue with Facebook</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 };
@@ -109,21 +181,41 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
-        padding: 20,
+        paddingHorizontal: 20,
         // backgroundColor:"blue",
         position: "relative",
         gap: 1
     },
+    modalBackground: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    overlay: {
+        flex: 1,
+    },
+    drawerContainer: {
+        height: Dimensions.get("screen").height - 50,
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        paddingHorizontal: 20,
+    },
     TitleView: {
-        width: "120%",
+        // width: "120%",
+        // backgroundColor:"black",
+        // backgroundColor:"yellow",
+        // paddingHorizontal:10,
+        height:45,
         borderBottomColor: "gray",
         borderBottomWidth: 0.2,
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: 9,
-        position: "absolute",
-        top: 1
-        // marginBottom:
+        // position: "absolute",
+        top: 1,
+        marginHorizontal: -20,
+        marginBottom:30
     },
     title: {
         fontSize: 16,
@@ -149,7 +241,7 @@ const styles = StyleSheet.create({
     crossIcon: {
         position: "absolute",
         left: 17,
-        top: 9,
+        top: 12.7,
         fontSize: 21
     },
     countryView: {

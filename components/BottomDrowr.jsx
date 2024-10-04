@@ -21,6 +21,9 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
 
     const [text, setText] = useState(val);
 
+
+    
+
     const closeDrawer = () => {
         Animated.timing(slideAnim, {
             toValue: 300,
