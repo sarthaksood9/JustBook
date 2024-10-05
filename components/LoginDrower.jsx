@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import { CountryPicker } from 'react-native-country-codes-picker';
 
 const LoginDrower = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -40,9 +41,9 @@ const LoginDrower = () => {
         }).start();
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         openDrawer();
-    },[])
+    }, [])
 
 
     const closeDrawer = () => {
@@ -80,93 +81,113 @@ const LoginDrower = () => {
                 <View style={styles.modalBackground}>
                     {<TouchableOpacity style={styles.overlay} onPress={closeDrawer} />}
                     {/* <KeyboardAvoidingView behavior='position'> */}
-                        <Animated.View
-                            style={[
-                                styles.drawerContainer,
-                                {
-                                    transform: [{ translateY: slideAnim }],
-                                },
-                            ]}
+                    <Animated.View
+                        style={[
+                            styles.drawerContainer,
+                            {
+                                transform: [{ translateY: slideAnim }],
+                            },
+                        ]}
 
-                        >
-                            <View style={styles.TitleView}>
-                                <Text style={styles.title}>Log in or sign up</Text>
-                                <Icon2 onPress={closeDrawer} name='cross' style={styles.crossIcon}></Icon2>
-                            </View>
-
-
-                            <View style={styles.uperview}>
+                    >
+                        <View style={styles.TitleView}>
+                            <Text style={styles.title}>Log in or sign up</Text>
+                            <Icon2 onPress={closeDrawer} name='cross' style={styles.crossIcon}></Icon2>
+                        </View>
 
 
-                                <View style={styles.inputView}>
-                                    <View style={styles.countryContainer}>
-                                        <View style={styles.countryView}>
-                                            <Icon name='arrow-down' style={styles.downIcon}></Icon>
-                                            <Text style={styles.cr}>Contery/Region</Text>
-                                            <View style={styles.countryInputView}>
-                                                <Text style={styles.countryText}>{country}</Text>
-                                                <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
-                                            </View>
+                        <View style={styles.uperview}>
+                            <CountryPicker
+                                style={{
+                                    modal: {
+                                        paddingTop:10
+                                    },
+                                    list:{
+                                        paddingTop:10
+                                    },
+                                    itemsList: {
+                                        paddingTop:40
+                                    }
+                                }}
+                                show={country}
+                                // when picker button press you will get the country object with dial code
+                                pickerButtonOnPress={(item) => {
+                                    setCountryCode(item.dial_code);
+                                    setCountry(false);
+                                }}
+                            >
+                            </CountryPicker>
+
+
+                            <View style={styles.inputView}>
+                                <View style={styles.countryContainer}>
+                                    <View style={styles.countryView}>
+                                        <Icon name='arrow-down' style={styles.downIcon}></Icon>
+                                        <Text style={styles.cr}>Contery/Region</Text>
+                                        <View style={styles.countryInputView}>
+                                            <Text style={styles.countryText}>{country}</Text>
+                                            <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
                                         </View>
                                     </View>
-                                    <TextInput
-                                        style={styles.phoneNumberInput}
-                                        placeholder="Phone number"
-                                        value={phoneNumber}
-                                        onChangeText={(text) => setPhoneNumber(text)}
-                                        keyboardType="phone-pad"
-                                    />
                                 </View>
-                                <Text style={styles.disclaimerText}>
-                                    We'll call or text to confirm your number. Standard message and data rates apply
-                                </Text>
-                                <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
-                                    <Text style={styles.continueButtonText}>Continue</Text>
-                                </TouchableOpacity>
-
+                                <TextInput
+                                    style={styles.phoneNumberInput}
+                                    placeholder="Phone number"
+                                    value={phoneNumber}
+                                    onChangeText={(text) => setPhoneNumber(text)}
+                                    keyboardType="phone-pad"
+                                />
                             </View>
+                            <Text style={styles.disclaimerText}>
+                                We'll call or text to confirm your number. Standard message and data rates apply
+                            </Text>
+                            <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+                                <Text style={styles.continueButtonText}>Continue</Text>
+                            </TouchableOpacity>
 
-                            <View style={styles.orContainer}>
-                                <View style={styles.lines}></View>
-                                <Text style={styles.orText}>or</Text>
-                                <View style={styles.lines}></View>
-                            </View>
-                            <View style={styles.bottomView}>
-                                <TouchableOpacity style={styles.buttonView}>
-                                    <Image style={styles.logos} source={require("../assets/Images/Logos/Mail.png")} />
-                                    <Text style={styles.btn}>Continue with email</Text>
-                                </TouchableOpacity>
-                                {Platform.OS === 'ios' && (
-                                    <TouchableOpacity style={styles.buttonView}>
-                                        <Image style={{
-                                            height: 22,
-                                            width: 22,
-                                            position: "absolute",
-                                            top: 8,
-                                            left: 14
-                                        }} source={require("../assets/Images/Logos/apple.png")} />
-                                        <Text style={styles.btn}>Continue with Apple</Text>
-                                    </TouchableOpacity>
-                                )}
-                                <TouchableOpacity style={styles.buttonView}>
-                                    <Image style={styles.logos} source={require("../assets/Images/Logos/GoogleLogo.png")} />
-                                    <Text style={styles.btn}>Continue with Google</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttonView}>
-                                    <Image style={
-                                        {
-                                            height: 22,
-                                            width: 22,
-                                            position: "absolute",
-                                            top: 8,
-                                            left: 14
-                                        }
-                                    } source={require("../assets/Images/Logos/Facebook.png")} />
-                                    <Text style={styles.btn}>Continue with Facebook</Text>
-                                </TouchableOpacity>
-                            </View>
+                        </View>
 
-                        </Animated.View>
+                        <View style={styles.orContainer}>
+                            <View style={styles.lines}></View>
+                            <Text style={styles.orText}>or</Text>
+                            <View style={styles.lines}></View>
+                        </View>
+                        <View style={styles.bottomView}>
+                            <TouchableOpacity style={styles.buttonView}>
+                                <Image style={styles.logos} source={require("../assets/Images/Logos/Mail.png")} />
+                                <Text style={styles.btn}>Continue with email</Text>
+                            </TouchableOpacity>
+                            {Platform.OS === 'ios' && (
+                                <TouchableOpacity style={styles.buttonView}>
+                                    <Image style={{
+                                        height: 22,
+                                        width: 22,
+                                        position: "absolute",
+                                        top: 8,
+                                        left: 14
+                                    }} source={require("../assets/Images/Logos/apple.png")} />
+                                    <Text style={styles.btn}>Continue with Apple</Text>
+                                </TouchableOpacity>
+                            )}
+                            <TouchableOpacity style={styles.buttonView}>
+                                <Image style={styles.logos} source={require("../assets/Images/Logos/GoogleLogo.png")} />
+                                <Text style={styles.btn}>Continue with Google</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.buttonView}>
+                                <Image style={
+                                    {
+                                        height: 22,
+                                        width: 22,
+                                        position: "absolute",
+                                        top: 8,
+                                        left: 14
+                                    }
+                                } source={require("../assets/Images/Logos/Facebook.png")} />
+                                <Text style={styles.btn}>Continue with Facebook</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </Animated.View>
                     {/* </KeyboardAvoidingView> */}
                 </View>
             </Modal>
@@ -206,7 +227,7 @@ const styles = StyleSheet.create({
         // backgroundColor:"black",
         // backgroundColor:"yellow",
         // paddingHorizontal:10,
-        height:45,
+        height: 45,
         borderBottomColor: "gray",
         borderBottomWidth: 0.2,
         justifyContent: "center",
@@ -215,7 +236,7 @@ const styles = StyleSheet.create({
         // position: "absolute",
         top: 1,
         marginHorizontal: -20,
-        marginBottom:30
+        marginBottom: 30
     },
     title: {
         fontSize: 16,
