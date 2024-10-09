@@ -1,6 +1,6 @@
 
 import { StyleSheet, View } from 'react-native';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useFonts, Inter_400Regular, Inter_700Bold } from '@expo-google-fonts/inter';
 import Search from '../components/Search';
 import UpperNav from '../components/UpperNav';
@@ -14,6 +14,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Trips from '../screens/Trips';
 import Message from '../screens/Message';
 import Profile from '../screens/Profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser, setUser } from '../redux/User/actions';
+import { UserContext } from '../context/UserContext';
 // import Search from './components/Search';
 // import UpperNav from './components/UpperNav';
 // import Rooms from './Subscreens/Rooms';
@@ -29,7 +32,14 @@ import Profile from '../screens/Profile';
 
 const Stack = createStackNavigator();
 
-const UserRoutes = ({icons, setIcons}) => {
+const UserRoutes = ({ icons, setIcons }) => {
+
+    const {logOut,users}=useContext(UserContext);
+
+    console.log(users)
+    // logOut();
+
+
 
     let [fontsLoaded] = useFonts({
         Inter_400Regular,

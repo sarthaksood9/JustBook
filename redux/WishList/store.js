@@ -4,12 +4,14 @@ import { wishlistReducer } from './reducer';
 import { productReducer } from '../Product/reducer';
 import { recentVisitReducer } from '../recentVisit/reducer';
 import { thunk } from 'redux-thunk';
+import userReducer from '../User/reducer';
 
 // Combine the reducers (in case you have more reducers in the future)
 const rootReducer = combineReducers({
   wishlist: wishlistReducer,
   product: productReducer,
-  recentVisit: recentVisitReducer
+  recentVisit: recentVisitReducer,
+  user:userReducer
 });
 
 // Create the Redux store

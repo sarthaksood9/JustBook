@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import CountryDrower from '../components/CountryDrower'
+// import LoginScreen from './LoginScreen'
 
 const Message = () => {
   return (
     <View>
-      <Text>M</Text>
+      {/* <LoginScreen/>      */}
+      <Text>message</Text>
     </View>
   )
 }

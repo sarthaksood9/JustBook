@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import LogScreen from './LogScreen'
 
 const Trips = () => {
   return (
-    <View>
-      <Text>Trips</Text>
-    </View>
+    <Text>Trips</Text>
   )
 }
 

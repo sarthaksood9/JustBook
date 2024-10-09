@@ -2,12 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomNav from './components/BottomNav';
-import { useState } from 'react';
-import { Provider } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './redux/WishList/store';
 import { SafeAreaView } from 'react-native';
 import UserRoutes from './Routes/UserRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
+import { UserProvider } from './context/UserContext';
+// import { UserContext } from './context/userContext';
 
 
 // This is new change
@@ -19,24 +21,33 @@ export default function App() {
   const [icons, setIcons] = useState("rooms")
   const [isAdmin, setIsAdmin] = useState("user");
 
+
+
+
+
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <UserProvider>
       <Provider store={store}>
-        <NavigationContainer independent={true}>
-          <StatusBar translucent backgroundColor="transparent" />
-          <View style={styles.container}>
+        <SafeAreaView style={{ flex: 1 }}>
+          {/* <UserContext> */}
+          <NavigationContainer independent={true}>
+            <StatusBar translucent backgroundColor="transparent" />
+            <View style={styles.container}>
 
-            {isAdmin === "user" ? <UserRoutes setIcons={setIcons} icons={icons} /> : <AdminRoutes />}
+              {isAdmin === "user" ? <UserRoutes setIcons={setIcons} icons={icons} /> : <AdminRoutes />}
 
-            {/* Bottom Navigation bat */}
+              {/* Bottom Navigation bat */}
 
-            {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
-            {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
-      
-          </View>
-        </NavigationContainer>
+              {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
+              {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
+
+            </View>
+          </NavigationContainer>
+          {/* </UserContext> */}
+        </SafeAreaView>
       </Provider>
-    </SafeAreaView>
+    </UserProvider>
 
   );
 }

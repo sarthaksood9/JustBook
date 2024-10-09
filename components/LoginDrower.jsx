@@ -1,5 +1,5 @@
 // LoginScreen.js
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -13,37 +13,23 @@ import {
     KeyboardAvoidingView,
     Easing,
     Dimensions,
+    Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import { CountryPicker } from 'react-native-country-codes-picker';
+import { Controller, useForm } from 'react-hook-form';
+import { UserContext } from '../context/UserContext';
 
-const LoginDrower = () => {
+const LoginDrower = ({modalVisible, setModalVisible, slideAnim}) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [countryCode, setCountryCode] = useState('+1');
-    const [country, setCountry] = useState('United States');
+    const [country, setCountry] = useState(false);
+    const [countryName, setCountryName] = useState("United States");
 
     const handleContinue = () => {
-        console.log('Continue button pressed');
+        setCountry(true);
     };
-
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [slideAnim] = useState(new Animated.Value(900));
-
-    const openDrawer = () => {
-        setModalVisible(true);
-        Animated.timing(slideAnim, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: true,
-            easing: Easing.ease,
-        }).start();
-    };
-
-    useEffect(() => {
-        openDrawer();
-    }, [])
 
 
     const closeDrawer = () => {
@@ -53,30 +39,41 @@ const LoginDrower = () => {
             useNativeDriver: true,
             easing: Easing.ease,
         }).start(() => setModalVisible(false));
-
-        // navigate.replace('wishview');
     };
 
 
-    const handleSave = () => {
-        dispatch(addNoteToWishlistItem(id, text));
-        setNotes(text);
+
+
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            // countCode: "",
+            // countName: "",
+            phone: "",
+        }
+    })
+
+    
+    
+    const {logIn,user} = useContext(UserContext);
+    
+    const onSubmit = async (data) => {
+        console.log('Submitted data:', { ...data, countryCode });
+        const userData={
+            phoneNum:data.phone,
+        }
+        await logIn(userData);
         closeDrawer();
     };
-    const handleClear = () => {
-        setText("")
-    };
+
+    console.log(user);
+
 
     return (
-
-
-
-
         <View style={styles.container}>
             <Modal
                 visible={modalVisible}
                 transparent
-                animationType="none" // We'll use custom animation with Animated API
+                animationType="none"
             >
                 <View style={styles.modalBackground}>
                     {<TouchableOpacity style={styles.overlay} onPress={closeDrawer} />}
@@ -100,18 +97,21 @@ const LoginDrower = () => {
                             <CountryPicker
                                 style={{
                                     modal: {
-                                        paddingTop:10
+                                        // height: 600,
+                                        paddingTop: 10
                                     },
-                                    list:{
-                                        paddingTop:10
+                                    list: {
+                                        paddingTop: 10
                                     },
                                     itemsList: {
-                                        paddingTop:40
+                                        paddingTop: 40
                                     }
                                 }}
+
                                 show={country}
                                 // when picker button press you will get the country object with dial code
                                 pickerButtonOnPress={(item) => {
+                                    setCountryName(item.name.es)
                                     setCountryCode(item.dial_code);
                                     setCountry(false);
                                 }}
@@ -120,28 +120,71 @@ const LoginDrower = () => {
 
 
                             <View style={styles.inputView}>
-                                <View style={styles.countryContainer}>
-                                    <View style={styles.countryView}>
-                                        <Icon name='arrow-down' style={styles.downIcon}></Icon>
-                                        <Text style={styles.cr}>Contery/Region</Text>
-                                        <View style={styles.countryInputView}>
-                                            <Text style={styles.countryText}>{country}</Text>
-                                            <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
+
+
+                                {/* <Controller
+                                    control={control}
+                                    name="countName"
+                                    rules={{ required: 'Country is required' }}
+                                    render={({ field: { onPress } }) =>(<Pressable onPress={handleContinue} >
+                                        <View style={styles.countryContainer}>
+                                            <View style={styles.countryView}>
+    
+                                                <Icon name='arrow-down' style={styles.downIcon}></Icon>
+                                                <Text style={styles.cr}>Contery/Region</Text>
+                                                <View style={styles.countryInputView}>
+                                                    <Text style={styles.countryText}>{countryName}</Text>
+                                                    <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </Pressable>) }
+                                />
+                                {errors.countName && <Text style={{ color: 'red', marginTop: -12, marginLeft: 7 }}>{errors.countName.message}</Text>} */}
+
+                                <Pressable onPress={handleContinue} >
+                                    <View style={styles.countryContainer}>
+                                        <View style={styles.countryView}>
+
+                                            <Icon name='arrow-down' style={styles.downIcon}></Icon>
+                                            <Text style={styles.cr}>Contery/Region</Text>
+                                            <View style={styles.countryInputView}>
+                                                <Text style={styles.countryText}>{countryName}</Text>
+                                                <Text style={styles.countryCodeText}>{`(${countryCode})`}</Text>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                                <TextInput
-                                    style={styles.phoneNumberInput}
-                                    placeholder="Phone number"
-                                    value={phoneNumber}
-                                    onChangeText={(text) => setPhoneNumber(text)}
-                                    keyboardType="phone-pad"
+                                </Pressable>
+
+
+                                <Controller
+                                    control={control}
+                                    name="phone"
+                                    rules={{
+                                        required: 'phone is required',
+                                        pattern: {
+                                            value: /^[0-9]*$/,
+                                            message: 'Phone number must be digits only'
+                                        }
+
+                                    }}
+                                    render={({ field: { onChange, onBlur, value } }) => (
+                                        <TextInput
+                                            onBlur={onBlur}
+                                            onChangeText={onChange}
+                                            value={value}
+                                            style={styles.phoneNumberInput}
+                                            placeholder="Phone number"
+                                            keyboardType="phone-pad"
+                                        />
+                                    )}
                                 />
                             </View>
+                            {errors.phone && <Text style={{ color: 'red', marginTop: -12, marginLeft: 7 }}>{errors.phone?.message}</Text>}
                             <Text style={styles.disclaimerText}>
                                 We'll call or text to confirm your number. Standard message and data rates apply
                             </Text>
-                            <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+                            <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.continueButton}>
                                 <Text style={styles.continueButtonText}>Continue</Text>
                             </TouchableOpacity>
 
@@ -190,9 +233,9 @@ const LoginDrower = () => {
                     </Animated.View>
                     {/* </KeyboardAvoidingView> */}
                 </View>
-            </Modal>
+            </Modal >
 
-        </View>
+        </View >
     );
 };
 
@@ -203,7 +246,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
         paddingHorizontal: 20,
-        // backgroundColor:"blue",
         position: "relative",
         gap: 1
     },
@@ -223,17 +265,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     TitleView: {
-        // width: "120%",
-        // backgroundColor:"black",
-        // backgroundColor:"yellow",
-        // paddingHorizontal:10,
         height: 45,
         borderBottomColor: "gray",
         borderBottomWidth: 0.2,
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: 9,
-        // position: "absolute",
         top: 1,
         marginHorizontal: -20,
         marginBottom: 30
