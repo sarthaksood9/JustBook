@@ -32,12 +32,14 @@ import { UserContext } from '../context/UserContext';
 
 const Stack = createStackNavigator();
 
-const UserRoutes = ({ icons, setIcons }) => {
+const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
 
     const {logOut,users}=useContext(UserContext);
 
-    console.log(users)
+
+
     // logOut();
+    
 
 
 
@@ -67,6 +69,9 @@ const UserRoutes = ({ icons, setIcons }) => {
     const RenderProductCard = () => {
         return <ProductCard icons={icons} setIcons={setIcons} />
     }
+    const RenderProfileScreen = () => {
+        return <Profile isAdmin={isAdmin} setIsAdmin={setIsAdmin} icons={icons} setIcons={setIcons} />
+    }
 
     return (
         <View style={styles.main}>
@@ -80,7 +85,7 @@ const UserRoutes = ({ icons, setIcons }) => {
                 <Stack.Screen name="wishlist" component={RenderWishListScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="trips" component={Trips} options={{ headerShown: false }} />
                 <Stack.Screen name="message" component={Message} options={{ headerShown: false }} />
-                <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+                <Stack.Screen name="profile" component={RenderProfileScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
                 <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false, animationEnabled: false }} />

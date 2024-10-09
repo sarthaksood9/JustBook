@@ -2,13 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomNav from './components/BottomNav';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './redux/WishList/store';
 import { SafeAreaView } from 'react-native';
 import UserRoutes from './Routes/UserRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
-import { UserProvider } from './context/UserContext';
+import { UserContext, UserProvider } from './context/UserContext';
+import AdminBottomNav from './components/AdminBottomNav';
 // import { UserContext } from './context/userContext';
 
 
@@ -23,9 +24,6 @@ export default function App() {
 
 
 
-
-
-
   return (
     <UserProvider>
       <Provider store={store}>
@@ -35,11 +33,13 @@ export default function App() {
             <StatusBar translucent backgroundColor="transparent" />
             <View style={styles.container}>
 
-              {isAdmin === "user" ? <UserRoutes setIcons={setIcons} icons={icons} /> : <AdminRoutes />}
+              {isAdmin === "user" ? <UserRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} setIcons={setIcons} icons={icons} /> : <AdminRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} icons={icons} setIcons={setIcons} />}
 
               {/* Bottom Navigation bat */}
 
-              {(icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />}
+              {isAdmin==="admin"?(<AdminBottomNav icons={icons} setIcons={setIcons}/>):((icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />)}
+
+              
               {/* <BottomNav icons={icons} setIcons={setIcons} /> */}
 
             </View>
