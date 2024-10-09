@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
 
 
 import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from '../context/UserContext';
 
 const ProfileScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -20,6 +21,10 @@ const ProfileScreen = () => {
   const handleContinue = () => {
     console.log('Continue button pressed');
   };
+
+  const {logOut}=useContext(UserContext);
+
+    //
 
   return (
     // <View style={styles.container}>
@@ -39,7 +44,7 @@ const ProfileScreen = () => {
     // </View>
 
 
-    <ScrollView style={{ flex: 1, backgroundColor: 'white', }}>
+    <ScrollView style={{ flex: 1, backgroundColor: 'white', marginBottom:90 ,paddingBottom:20 }}>
       <View style={{ padding: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold' }}>Profile</Text>
         <Ionicons name="notifications-outline" size={24} color="black" />
@@ -70,7 +75,7 @@ const ProfileScreen = () => {
       </View>
 
       <View style={{ padding: 20 }}>
-        <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 20 }}>Settings</Text>
+        <Text style={{ fontSize: 29, fontWeight: '600', marginBottom: 14 }}>Settings</Text>
         {[
           { icon: 'person-outline', text: 'Personal information' },
           { icon: 'card-outline', text: 'Payments and payouts' },
@@ -83,11 +88,42 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={{ padding: 20 }}>
+        <Text style={{ fontSize: 29, fontWeight: '600', marginBottom: 14 }}>Legel</Text>
+        {[
+          { icon: 'person-outline', text: 'Personal information' },
+          { icon: 'card-outline', text: 'Payments and payouts' },
+          { icon: 'document-text-outline', text: 'Taxes' },
+        ].map((item, index) => (
+          <TouchableOpacity key={index} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: '#eee' }}>
+            <Ionicons name={item.icon} size={24} color="black" style={{ marginRight: 15 }} />
+            <Text style={{ flex: 1, fontSize: 18 }}>{item.text}</Text>
+            <Ionicons name="chevron-forward" size={24} color="#666" />
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <Text onPress={()=>{ logOut();}} style={styles.logout}>Log out</Text>
+      <Text style={styles.ver} >VERSION 24.39 (203977)</Text>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  logout:{
+    textDecorationLine:"underline",
+    paddingHorizontal:18,
+    fontSize:17.6,
+    fontWeight:"400"
+  },
+  ver:{
+    fontSize:12.4,
+    color:"gray",
+    paddingHorizontal:18,
+    // fontSize:17.6,
+    fontWeight:"400",
+    marginTop:16
+  }
 });
 
 export default ProfileScreen;

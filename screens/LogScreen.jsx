@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet, Easing, An
 import LoginDrower from '../components/LoginDrower';
 import { Ionicons } from '@expo/vector-icons';
 
-const LogScreen = ({isAdmin, setIsAdmin}) => {
+const LogScreen = () => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [slideAnim] = useState(new Animated.Value(300));
@@ -111,7 +111,7 @@ const LogScreen = ({isAdmin, setIsAdmin}) => {
                 </View>
             </ScrollView>
 
-            {modalVisible && <LoginDrower isAdmin={isAdmin} setIsAdmin={setIsAdmin} modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />}
+            {modalVisible && <LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />}
             {/* {<LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />} */}
 
         </View>

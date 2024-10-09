@@ -21,7 +21,7 @@ import { CountryPicker } from 'react-native-country-codes-picker';
 import { Controller, useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
 
-const LoginDrower = ({isAdmin, setIsAdmin,modalVisible, setModalVisible, slideAnim}) => {
+const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [countryCode, setCountryCode] = useState('+1');
     const [country, setCountry] = useState(false);
@@ -30,9 +30,6 @@ const LoginDrower = ({isAdmin, setIsAdmin,modalVisible, setModalVisible, slideAn
     const handleContinue = () => {
         setCountry(true);
     };
-
-    console.log(isAdmin);
-
 
     const closeDrawer = () => {
         Animated.timing(slideAnim, {
@@ -54,16 +51,27 @@ const LoginDrower = ({isAdmin, setIsAdmin,modalVisible, setModalVisible, slideAn
         }
     })
 
-    
-    
-    const {logIn,user} = useContext(UserContext);
-    
+
+
+    const { logIn, user } = useContext(UserContext);
+
     const onSubmit = async (data) => {
-        const userData={
-            phoneNum:data.phone,
+        if (data.phone === "1234567890") {
+            const userData = {
+                isAdmin: "admin",
+                phoneNum: data.phone,
+            }
+            await logIn(userData);
+            closeDrawer();
         }
-        await logIn(userData);
-        closeDrawer();
+        else {
+            const userData = {
+                isAdmin: "user",
+                phoneNum: data.phone,
+            }
+            await logIn(userData);
+            closeDrawer();
+        }
     };
 
 

@@ -34,14 +34,10 @@ const Stack = createStackNavigator();
 
 const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
 
-    const {logOut,users}=useContext(UserContext);
-
-
+    const {logOut}=useContext(UserContext);
 
     // logOut();
     
-
-
 
     let [fontsLoaded] = useFonts({
         Inter_400Regular,
@@ -70,7 +66,7 @@ const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
         return <ProductCard icons={icons} setIcons={setIcons} />
     }
     const RenderProfileScreen = () => {
-        return <Profile isAdmin={isAdmin} setIsAdmin={setIsAdmin} icons={icons} setIcons={setIcons} />
+        return <Profile icons={icons} setIcons={setIcons} />
     }
 
     return (

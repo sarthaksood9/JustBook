@@ -43,7 +43,7 @@ const AdminBottomNav = ({setIcons, icons }) => {
                     <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "message" ? "red" : "rgb(141, 141, 141)" }]}>Message</Text>
                 </View>
             </Pressable >
-            <Pressable onPress={() => { hendleNavigateRooms("profile") }}>
+            <Pressable onPress={() => { hendleNavigateRooms("menu") }}>
                 <View style={styles.iconView}>
                 <Ionicons name="menu" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
                     <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "profile" ? "red" : "rgb(141, 141, 141)" }]}>Profile</Text>
