@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Calendar } from 'react-native-calendars';
 
 
 
@@ -15,6 +16,7 @@ const SignUpDrower = () => {
   const [email, setEmail] = useState('');
   const [optOut, setOptOut] = useState(false);
 
+  const [calenderVisible, setSalenderVisible] = useState(false);
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity style={styles.backButton}>
@@ -25,7 +27,10 @@ const SignUpDrower = () => {
       <Text style={styles.label}>Legal name</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, {
+            borderBottomColor: "gray",
+            borderBottomWidth: 0.6,
+          }]}
           placeholder="First name on ID"
           value={firstName}
           onChangeText={setFirstName}
@@ -42,8 +47,10 @@ const SignUpDrower = () => {
       </Text>
 
       <Text style={styles.label}>Date of birth</Text>
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer} >
+
         <TextInput
+          onPress={() => { setSalenderVisible(true) }}
           style={styles.input}
           placeholder="Birthdate"
           value={birthdate}
@@ -51,6 +58,13 @@ const SignUpDrower = () => {
         />
         <Ionicons name="chevron-down" size={24} color="black" style={styles.icon} />
       </View>
+
+      {calenderVisible && <Calendar
+        onDayPress={day => {
+          setBirthdate(day.dateString);
+          setSalenderVisible(false);
+        }}
+      />}
       <Text style={styles.helperText}>
         To sign up, you need to be at least 18. Your birthday won't be shared with other people who use Airbnb.
       </Text>
@@ -97,6 +111,7 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     padding: 20,
+    marginBottom: 50,
     backgroundColor: 'white',
   },
   backButton: {
@@ -157,7 +172,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom:50
   },
   checkbox: {
     width: 24,
@@ -168,6 +183,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   checked: {
     backgroundColor: 'black',
