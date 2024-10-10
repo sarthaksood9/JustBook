@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomNav from './components/BottomNav';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import store from './redux/WishList/store';
 import { SafeAreaView } from 'react-native';
@@ -10,6 +10,7 @@ import UserRoutes from './Routes/UserRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
 import AdminBottomNav from './components/AdminBottomNav';
 import { UserContext } from './context/UserContext';
+import { set_device_info } from './utils/device';
 
 
 export default function SemiApp() {
@@ -18,9 +19,12 @@ export default function SemiApp() {
     const [icons, setIcons] = useState("rooms")
     const [isAdmin, setIsAdmin] = useState(user?.user?.isAdmin);
 
-    console.log(isAdmin);
 
-    console.log(user?.user?.isAdmin,":asfsf")
+    // const { height, width } = useWindowDimensions();
+
+    // useEffect(() => {
+	// 	set_device_info({ width, height });
+	// }, [height, width]);
 
 
     // user.logOut();

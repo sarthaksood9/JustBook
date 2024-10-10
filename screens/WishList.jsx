@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadInitialRecents } from '../redux/recentVisit/actions';
 import { loadInitialWish } from '../redux/WishList/actions';
+import device from '../utils/device';
+// import rn_device from 'react-native-device-info';
 
 const WishList = ({ icons, setIcons }) => {
   const navigate = useNavigation();
@@ -125,7 +127,10 @@ const styles = StyleSheet.create({
     marginVertical: 18,
     padding: 5,
     flexDirection: "row",
+    // justifyContent: device.isTablet?"space-around":"space-between"
+    // justifyContent: rn_device.istablate?"space-around":"space-between"
     justifyContent: "space-between"
+
   },
   gridBox: {
     elevation: 4,
