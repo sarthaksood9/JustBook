@@ -46,6 +46,7 @@ const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
     }
   };
 
+  
 
   // useDebounce(filterHotels, 1500, [inputVal],setLoading);
 

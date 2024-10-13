@@ -21,32 +21,32 @@ const AdminBottomNav = ({setIcons, icons }) => {
         <View style={styles.botNav}>
             <Pressable onPress={() => { hendleNavigateRooms("today") }}>
                 <View style={[styles.iconView,]}>
-                    <Ionicons name="home-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }]}>Today</Text>
+                    <Ionicons name="home-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "today" ? "red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "today"  ? "red" : "rgb(141, 141, 141)" }]}>Today</Text>
                 </View>
             </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("calendar") }}>
+            <Pressable onPress={() => { hendleNavigateRooms("calander") }}>
                 <View style={styles.iconView}>
-                <Ionicons name="calendar-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "wishlist" ? "red" : "rgb(141, 141, 141)" }]}> Calendar</Text>
+                <Ionicons name="calendar-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "calander" ? "red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "calander" ? "red" : "rgb(141, 141, 141)" }]}> Calendar</Text>
                 </View>
             </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("listings") }}>
+            <Pressable onPress={() => { hendleNavigateRooms("listing") }}>
                 <View style={styles.iconView}>
-                <MaterialCommunityIcons name="home-roof" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "trips" ? "red" : "rgb(141, 141, 141)" }]}>Listings</Text>
+                <MaterialCommunityIcons name="home-roof" size={24} style={{ fontWeight: "bold", color: currentRoute === "listing" ? "red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "listing" ? "red" : "rgb(141, 141, 141)" }]}>Listings</Text>
                 </View>
             </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("message") }}>
+            <Pressable onPress={() => { hendleNavigateRooms("messages") }}>
                 <View style={styles.iconView}>
-                <MaterialCommunityIcons name="message-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "message" ? "red" : "rgb(141, 141, 141)" }]}>Message</Text>
+                <MaterialCommunityIcons name="message-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "messages" ? "red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "messages" ? "red" : "rgb(141, 141, 141)" }]}>Message</Text>
                 </View>
             </Pressable >
             <Pressable onPress={() => { hendleNavigateRooms("menu") }}>
                 <View style={styles.iconView}>
-                <Ionicons name="menu" size={24} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools" ? "red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "profile" ? "red" : "rgb(141, 141, 141)" }]}>Profile</Text>
+                <Ionicons name="menu" size={24} style={{ fontWeight: "bold", color: currentRoute === "menu" ? "red" : "rgb(141, 141, 141)" }} />
+                    <Text style={[styles.navFont, { fontWeight: "200", color: currentRoute === "menu" ? "red" : "rgb(141, 141, 141)" }]}>Profile</Text>
                 </View>
             </Pressable>
         </View >

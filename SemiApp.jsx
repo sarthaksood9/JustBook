@@ -37,11 +37,11 @@ export default function SemiApp() {
                     <StatusBar translucent backgroundColor="transparent" />
                     <View style={styles.container}>
 
-                        {user?.user?.isAdmin !== "admin" ? <UserRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} setIcons={setIcons} icons={icons} /> : <AdminRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} icons={icons} setIcons={setIcons} />}
+                        {user?.user?.user?.role!=="admin" ? <UserRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} setIcons={setIcons} icons={icons} /> : <AdminRoutes isAdmin={isAdmin} setIsAdmin={setIsAdmin} icons={icons} setIcons={setIcons} />}
 
                         {/* Bottom Navigation bat */}
 
-                        {user?.user?.isAdmin === "admin" ? (<AdminBottomNav icons={icons} setIcons={setIcons} />) : ((icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />)}
+                        {user?.user?.user?.role==="admin" ? (<AdminBottomNav icons={icons} setIcons={setIcons} />) : ((icons !== "productcard") && <BottomNav icons={icons} setIcons={setIcons} />)}
 
 
                         {/* <BottomNav icons={icons} setIcons={setIcons} /> */}

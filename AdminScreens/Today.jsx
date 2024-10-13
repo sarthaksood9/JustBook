@@ -6,7 +6,7 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
 
 
-export default function AdminHome() {
+export default function Today() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

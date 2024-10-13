@@ -1,5 +1,5 @@
 import { Image, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
@@ -8,8 +8,16 @@ import Icon5 from 'react-native-vector-icons/EvilIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, removeItem } from '../redux/WishList/actions';
+import { UserContext } from '../context/UserContext';
+
 
 const ProductCard = ({ icons, setIcons }) => {
+
+    const user=  useContext(UserContext);
+
+    console.log(user.user.data.wishlist.length);
+
+    
     const navigate = useNavigation();
     const route = useRoute();
     const { name } = route.params || {};
@@ -45,7 +53,7 @@ const ProductCard = ({ icons, setIcons }) => {
                         <Icon name="share-outline" style={styles.sharebBtn} />
                     </View>
                     <View style={styles.BtnView}>
-                        <Pressable onPress={() => { { !wishPress ? dispatch(addItem(item)) : dispatch(removeItem(item.id)) }; setWishPress(!wishPress) }}>
+                        <Pressable onPress={() => { { !wishPress ? (dispatch(addItem(item)),user.addToWishlist(item) ): dispatch(removeItem(item.id)) }; setWishPress(!wishPress) }}>
                             <Icon5 name="heart" style={[wishBtn]} />
                         </Pressable>
                     </View>

@@ -10,11 +10,13 @@ const Profile = () => {
 
   const user = useContext(UserContext);
 
+ 
+
 
   return (
 
     <View style={{flex: 1,backgroundColor:"white"}}>
-      {user?.user?.isAdmin  ? <ProfileScreen /> : <LogScreen  />}
+      {user?.user?.user?.role==="user"  ? <ProfileScreen /> : <LogScreen  />}
     </View>
 
 

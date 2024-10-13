@@ -33,7 +33,7 @@ const RoomCard = ({ route,item, icons, setIcons }) => {
                 <View style={styles.textview}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.price}>{item.price}</Text>
-                    {icons!=="wishview" && <Text style={styles.place}>{item.place}</Text>}
+                    {icons!=="wishview" || icons!=="listing" && <Text style={styles.place}>{item.place}</Text>}
                 </View>
             </View>
         </Pressable>
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     cont: {
         paddingVertical: 10,
         justifyContent: "center",
-        borderRadius: 8,
-        margin: 4,
+        borderRadius: 18,
+        // margin: 4,
 
     },
     textview: {

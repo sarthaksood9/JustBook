@@ -36,6 +36,10 @@ const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
 
     const {logOut}=useContext(UserContext);
 
+    useEffect(()=>{
+        setIcons("rooms")
+    },[])
+
     // logOut();
     
 
@@ -71,7 +75,7 @@ const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
 
     return (
         <View style={styles.main}>
-            {(icons === "rooms" || icons === "pools" && icons !== "productcard") && <View style={styles.upperNavView}>
+            {(icons === "rooms" || icons === "pools" && icons !== "productcard" ) && <View style={styles.upperNavView}>
                 <Search inputVal={inputVal} setInputVal={setInputVal} />
                 <UpperNav icons={icons} setIcons={setIcons} />
             </View>}

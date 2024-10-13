@@ -19,6 +19,8 @@ const WishList = ({ icons, setIcons }) => {
   const recent = useSelector(state => state.recentVisit.items);
 
 
+
+
   const plusImg = "https://static.thenounproject.com/png/877484-200.png";
 
 

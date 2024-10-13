@@ -6,6 +6,10 @@ import AdminHome from '../screens/AdminHome';
 import AdminBottomNav from '../components/AdminBottomNav';
 import { UserContext } from '../context/UserContext';
 import MenuItems from '../AdminScreens/MenuItems';
+import Today from '../AdminScreens/Today';
+import Calander from '../AdminScreens/Calander';
+import Messages from '../AdminScreens/Messages';
+import Listing from '../AdminScreens/Listing';
 
 const Stack = createStackNavigator();
 
@@ -19,8 +23,12 @@ const AdminRoutes = ({isAdmin, setIsAdmin ,icons, setIcons}) => {
     // setIsAdmin("admin")
     return (
         <View style={styles.main}>
+            
             <Stack.Navigator>
-                <Stack.Screen name="admin" component={AdminHome} options={{ headerShown: false }} />
+                <Stack.Screen name="today" component={Today} options={{ headerShown: false }} />
+                <Stack.Screen name="calander" component={Calander} options={{ headerShown: false }} />
+                <Stack.Screen name="listing" component={Listing} options={{ headerShown: false }} />
+                <Stack.Screen name="messages" component={Messages} options={{ headerShown: false }} />
                 <Stack.Screen name="menu" component={MenuItems} options={{ headerShown: false }} />
             </Stack.Navigator>
 
