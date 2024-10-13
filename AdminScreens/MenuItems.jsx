@@ -17,8 +17,6 @@ const MenuItem = ({ icon, label }) => (
 
 const MenuItems = () => {
   const user=useContext(UserContext);
-  // user.logOut();
-  console.log(user)
   return (
     <ScrollView style={styles.container}>
 

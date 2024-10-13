@@ -15,9 +15,6 @@ const ProductCard = ({ icons, setIcons }) => {
 
     const user=  useContext(UserContext);
 
-    console.log(user.user.data.wishlist.length);
-
-    
     const navigate = useNavigation();
     const route = useRoute();
     const { name } = route.params || {};
@@ -30,7 +27,8 @@ const ProductCard = ({ icons, setIcons }) => {
     const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
 
-    // console.log(item)
+    console.log(item)
+
 
     const [wishPress, setWishPress] = useState(item.wish);
 

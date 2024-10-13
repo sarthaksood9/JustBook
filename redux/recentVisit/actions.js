@@ -25,7 +25,7 @@ export const loadInitialRecents = () => {
       const recentItems = storedItems ? JSON.parse(storedItems) : [];
       dispatch({ type: LOAD_INITIAL_RECENTS, payload: recentItems });
     } catch (error) {
-      console.error('Error loading recent items from storage', error);
+      error('Error loading recent items from storage', error);
     }
   };
 };
