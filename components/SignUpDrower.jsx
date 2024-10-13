@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Animated, Easing, Modal, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Calendar } from 'react-native-calendars';
 
@@ -9,7 +9,17 @@ import { Calendar } from 'react-native-calendars';
 
 
 
-const SignUpDrower = () => {
+const SignUpDrower = ({ signInmodalVisible, setSignInmodalVisible, slideAnim }) => {
+
+  const closeDrawer = () => {
+    Animated.timing(slideAnim, {
+      toValue: 900,
+      duration: 300,
+      useNativeDriver: true,
+      easing: Easing.ease,
+    }).start(() => setSignInmodalVisible(false));
+  };
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -18,109 +28,174 @@ const SignUpDrower = () => {
 
   const [calenderVisible, setSalenderVisible] = useState(false);
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity style={styles.backButton}>
-        <Ionicons name="chevron-back" size={24} color="black" />
-      </TouchableOpacity>
-      <Text style={styles.header}>Finish signing up</Text>
+    <View style={styles.container}>
+      <Modal
+        visible={signInmodalVisible}
+        transparent
+        animationType="none"
+      >
+        <View style={styles.modalBackground}>
+          {<TouchableOpacity style={styles.overlay} onPress={closeDrawer} />}
+          {/* <KeyboardAvoidingView behavior='position'> */}
+          <Animated.View
+            style={[
+              styles.drawerContainer,
+              {
+                transform: [{ translateY: slideAnim }],
+              },
+            ]}
 
-      <Text style={styles.label}>Legal name</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[styles.input, {
-            borderBottomColor: "gray",
-            borderBottomWidth: 0.6,
-          }]}
-          placeholder="First name on ID"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last name on ID"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-      </View>
-      <Text style={styles.helperText}>
-        Make sure this matches the name on your government ID. If you go by another name, you can add a preferred first name.
-      </Text>
+          >
+            <ScrollView style={styles.container1} showsVerticalScrollIndicator={false}>
+              <View style={styles.headView}>
+                <TouchableOpacity onPress={closeDrawer} style={styles.backButton}>
+                  <Ionicons name="chevron-back" size={19} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.header}>Finish signing up</Text>
+              </View>
 
-      <Text style={styles.label}>Date of birth</Text>
-      <View style={styles.inputContainer} >
+              <Text style={styles.label}>Legal name</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={[styles.input, {
+                    borderBottomColor: "gray",
+                    borderBottomWidth: 0.6,
+                  }]}
+                  placeholder="First name on ID"
+                  value={firstName}
+                  onChangeText={setFirstName}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Last name on ID"
+                  value={lastName}
+                  onChangeText={setLastName}
+                />
+              </View>
+              <Text style={styles.helperText}>
+                Make sure this matches the name on your government ID. If you go by another name, you can add a preferred first name.
+              </Text>
 
-        <TextInput
-          onPress={() => { setSalenderVisible(true) }}
-          style={styles.input}
-          placeholder="Birthdate"
-          value={birthdate}
-          onChangeText={setBirthdate}
-        />
-        <Ionicons name="chevron-down" size={24} color="black" style={styles.icon} />
-      </View>
+              <Text style={styles.label}>Date of birth</Text>
+              <View style={styles.inputContainer} >
 
-      {calenderVisible && <Calendar
-        onDayPress={day => {
-          setBirthdate(day.dateString);
-          setSalenderVisible(false);
-        }}
-      />}
-      <Text style={styles.helperText}>
-        To sign up, you need to be at least 18. Your birthday won't be shared with other people who use Airbnb.
-      </Text>
+                <TextInput
+                  onPress={() => { setSalenderVisible(true) }}
+                  style={styles.input}
+                  placeholder="Birthdate"
+                  value={birthdate}
+                  onChangeText={setBirthdate}
+                />
+                <Ionicons name="chevron-down" size={24} color="black" style={styles.icon} />
+              </View>
 
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <Text style={styles.helperText}>
-        We'll email you trip confirmations and receipts.
-      </Text>
+              {calenderVisible && <Calendar
+                onDayPress={day => {
+                  setBirthdate(day.dateString);
+                  setSalenderVisible(false);
+                }}
+              />}
+              <Text style={styles.helperText}>
+                To sign up, you need to be at least 18. Your birthday won't be shared with other people who use Airbnb.
+              </Text>
 
-      <Text style={styles.terms}>
-        By selecting Agree and continue, I agree to Airbnb's{' '}
-        <Text style={styles.link}>Terms of Service</Text>,{' '}
-        <Text style={styles.link}>Payments Terms of Service</Text> and{' '}
-        <Text style={styles.link}>Nondiscrimination Policy</Text> and acknowledge the{' '}
-        <Text style={styles.link}>Privacy Policy</Text>.
-      </Text>
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+              />
+              <Text style={styles.helperText}>
+                We'll email you trip confirmations and receipts.
+              </Text>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Agree and continue</Text>
-      </TouchableOpacity>
+              <Text style={styles.terms}>
+                By selecting Agree and continue, I agree to Airbnb's{' '}
+                <Text style={styles.link}>Terms of Service</Text>,{' '}
+                <Text style={styles.link}>Payments Terms of Service</Text> and{' '}
+                <Text style={styles.link}>Nondiscrimination Policy</Text> and acknowledge the{' '}
+                <Text style={styles.link}>Privacy Policy</Text>.
+              </Text>
 
-      <Text style={styles.marketingText}>
-        Airbnb will send you members-only deals, inspiration, marketing emails, and push notifications. You can opt out of receiving these at any time in your account settings or directly from the marketing notification.
-      </Text>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Agree and continue</Text>
+              </TouchableOpacity>
 
-      <TouchableOpacity style={styles.checkboxContainer} onPress={() => setOptOut(!optOut)}>
-        <View style={[styles.checkbox, optOut && styles.checked]}>
-          {optOut && <Ionicons name="checkmark" size={18} color="white" />}
+              <Text style={styles.marketingText}>
+                Airbnb will send you members-only deals, inspiration, marketing emails, and push notifications. You can opt out of receiving these at any time in your account settings or directly from the marketing notification.
+              </Text>
+
+              <TouchableOpacity style={styles.checkboxContainer} onPress={() => setOptOut(!optOut)}>
+                <View style={[styles.checkbox, optOut && styles.checked]}>
+                  {optOut && <Ionicons name="checkmark" size={18} color="white" />}
+                </View>
+                <Text style={styles.checkboxLabel}>I don't want to receive marketing messages from Airbnb.</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </Animated.View>
         </View>
-        <Text style={styles.checkboxLabel}>I don't want to receive marketing messages from Airbnb.</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </Modal>
+    </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#f5f5f5',
+    backgroundColor: 'blue',
+    position: "relative",
+    gap: 1
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  overlay: {
+    flex: 1,
+  },
+  drawerContainer: {
+    height: Dimensions.get("screen").height - 50,
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    // paddingHorizontal: 20,
+  },
+  container1: {
     // flex: 1,
     padding: 20,
     marginBottom: 50,
     backgroundColor: 'white',
+    borderRadius: 20,
+    height: "100%"
+  },
+  headView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.4,
+    position:"relative",
+    width:"",
+    paddingBottom: 10,
+    marginBottom: 20,
   },
   backButton: {
-    marginBottom: 20,
+    // marginBottom: 20,
+    position:"absolute",
+    left:-5,
+    top:1
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: '500',
+    // marginBottom: 20,
   },
   label: {
     fontSize: 18,
@@ -172,7 +247,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom:50
+    marginBottom: 50
   },
   checkbox: {
     width: 24,
@@ -183,7 +258,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    
+
   },
   checked: {
     backgroundColor: 'black',

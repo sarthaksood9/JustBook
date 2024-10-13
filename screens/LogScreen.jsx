@@ -3,14 +3,26 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet, Easing, Animated } from 'react-native';
 import LoginDrower from '../components/LoginDrower';
 import { Ionicons } from '@expo/vector-icons';
+import SignIndrowr from '../components/SignIndrowr';
+import SignUpDrower from '../components/SignUpDrower';
 
 const LogScreen = () => {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [signInmodalVisible, setSignInmodalVisible] = useState(false);
     const [slideAnim] = useState(new Animated.Value(300));
 
     const openDrawer = () => {
         setModalVisible(true);
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+    const openDrawer2 = () => {
+        setSignInmodalVisible(true);
         Animated.timing(slideAnim, {
             toValue: 0,
             duration: 300,
@@ -47,7 +59,7 @@ const LogScreen = () => {
                 </TouchableOpacity>
 
                 <Text style={{ fontSize: 16, marginBottom: 30 }}>
-                    Don't have an account? <Text onPress={openDrawer} style={{ textDecorationLine: 'underline' }}>Sign up</Text>
+                    Don't have an account? <Text onPress={openDrawer2} style={{ textDecorationLine: 'underline' }}>Sign up</Text>
                 </Text>
 
                 <View style={{ paddingVertical: 7, paddingHorizontal: 20, backgroundColor: '#f8f8f8', borderRadius: 10 }}>
@@ -112,6 +124,7 @@ const LogScreen = () => {
             </ScrollView>
 
             {modalVisible && <LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />}
+            {signInmodalVisible && <SignUpDrower signInmodalVisible={signInmodalVisible} setSignInmodalVisible={setSignInmodalVisible} slideAnim={slideAnim} />}
             {/* {<LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />} */}
 
         </View>

@@ -20,6 +20,7 @@ import Icon2 from 'react-native-vector-icons/Entypo';
 import { CountryPicker } from 'react-native-country-codes-picker';
 import { Controller, useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
+import SignIndrowr from './SignIndrowr';
 
 const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -260,7 +261,7 @@ const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
                     {/* </KeyboardAvoidingView> */}
                 </View>
             </Modal >
-
+            
         </View >
     );
 };
