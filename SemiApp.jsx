@@ -19,6 +19,8 @@ export default function SemiApp() {
     const [icons, setIcons] = useState("rooms")
     const [isAdmin, setIsAdmin] = useState(user?.user?.isAdmin);
 
+    // from windows
+
 
     // const { height, width } = useWindowDimensions();
 
