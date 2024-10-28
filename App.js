@@ -11,18 +11,19 @@ import AdminRoutes from './Routes/AdminRoutes';
 import { UserContext, UserProvider } from './context/UserContext';
 import AdminBottomNav from './components/AdminBottomNav';
 import SemiApp from './SemiApp';
-// import { UserContext } from './context/userContext';
 
+// import "./ReactotronConfig.js"
+// import reactotron from 'reactotron-react-native';
 
-// This is new change
 
 
 
 export default function App() {
 
+
   return (
     <UserProvider>
-      <SemiApp/>
+      <SemiApp />
     </UserProvider>
 
   );

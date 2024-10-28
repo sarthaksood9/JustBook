@@ -9,7 +9,8 @@ const Message = () => {
     <View>
       {/* <LoginScreen/>      */}
       {/* <Text>message</Text> */}
-      <SignUpDrower/>
+      {/* <SignUpDrower/> */}
+      <Text>Messages</Text>
     </View>
   )
 }

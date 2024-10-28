@@ -22,7 +22,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
 import SignIndrowr from './SignIndrowr';
 
-const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
+const LoginDrower = ({ setSignInmodalVisible, modalVisible, setModalVisible, slideAnim }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [countryCode, setCountryCode] = useState('+1');
     const [country, setCountry] = useState(false);
@@ -54,43 +54,57 @@ const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
 
 
 
-    const { logIn, user } = useContext(UserContext);
+    const { logIn, user, usersList, exist } = useContext(UserContext);
+    console.log(usersList,"list");
+    console.log(user,"user");
 
     const onSubmit = async (data) => {
-        if (data.phone === "9518849040") {
-            const users = {
-                user: {
-                    name:"Sarthak",
-                    address:"",
-                    email:"",
-                    phone:"9518849040",
-                    role:"user"
-                },
-                data: {
-                    wishlist: [{ "club": "Celebrity Lounge", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }],
-                    recent:[{"club": "Celebrity Lounge", "dateAdded": "2024-10-03T05:55:54.086Z", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false}]
+
+        const ListedUser = await exist(data);
+        console.log(ListedUser,"ls");
+        
+        // if (ListedUser) {
+
+
+            if (data.phone === "1234567890") {
+                const users = {
+                    user: {
+                        name: "Sarthak",
+                        address: "",
+                        email: "",
+                        phone: "1234567890",
+                        role: "admin"
+                    },
+                    data: {
+                        wishlist: [{ "club": "Celebrity Lounge", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }],
+                        recent: [{ "club": "Celebrity Lounge", "dateAdded": "2024-10-03T05:55:54.086Z", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }]
+                    }
                 }
+                await logIn(users);
+                closeDrawer();
             }
-            await logIn(users);
-            closeDrawer();
-        }
-        else {
-            const users = {
-                user: {
-                    name:"admin",
-                    address:"",
-                    email:"",
-                    phone:"1234567890",
-                    role:"admin"
-                },
-                data: {
-                    wishlist: [{ "club": "Celebrity Lounge", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }],
-                    recent:[{"club": "Celebrity Lounge", "dateAdded": "2024-10-03T05:55:54.086Z", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false}]
-                }
+            else {
+                // let users = {
+                //     user: {
+                //         name: "new us",
+                //         address: "",
+                //         email: "",
+                //         phone: data.phone,
+                //         role: "user"
+                //     },
+                //     data: {
+                //         wishlist: [{ "club": "Celebrity Lounge", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }],
+                //         recent: [{ "club": "Celebrity Lounge", "dateAdded": "2024-10-03T05:55:54.086Z", "features": [[Object], [Object]], "hostedBy": "Doja Cat", "id": 1, "img": "../assets/Images/AirBnb/img1.jpg", "imgUrl": "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE3NzY2MTYzNDg4MjE2ODY1Nw%3D%3D/original/a332d020-4315-4f63-af71-444d46474939.png?im_w=1440&im_q=highq", "name": "Join a living room session with Doja", "place": "Coming October", "price": "Hosted by Doja Ca", "wish": false }]
+                //     }
+                // }
+                // await logIn(users);
+                closeDrawer();
+                setSignInmodalVisible(true);
             }
-            await logIn(users);
-            closeDrawer();
-        }
+        // }
+        // else{
+        //     console.log("noooooo......");
+        // }
     };
 
 
@@ -261,7 +275,7 @@ const LoginDrower = ({ modalVisible, setModalVisible, slideAnim }) => {
                     {/* </KeyboardAvoidingView> */}
                 </View>
             </Modal >
-            
+
         </View >
     );
 };

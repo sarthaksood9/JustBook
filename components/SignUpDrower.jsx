@@ -19,6 +19,7 @@ const SignUpDrower = ({ signInmodalVisible, setSignInmodalVisible, slideAnim }) 
       easing: Easing.ease,
     }).start(() => setSignInmodalVisible(false));
   };
+  console.log(signInmodalVisible);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -31,7 +32,7 @@ const SignUpDrower = ({ signInmodalVisible, setSignInmodalVisible, slideAnim }) 
     <View style={styles.container}>
       <Modal
         visible={signInmodalVisible}
-        transparent
+        // transparent
         animationType="none"
       >
         <View style={styles.modalBackground}>
@@ -144,24 +145,32 @@ const SignUpDrower = ({ signInmodalVisible, setSignInmodalVisible, slideAnim }) 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: '#f5f5f5',
     backgroundColor: 'blue',
     position: "relative",
-    gap: 1
+    gap: 1,
+    // height: "100%",
+    
   },
   modalBackground: {
-    flex: 1,
+
+    // flex: 1,
+    height: "100%",
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'green',
   },
   overlay: {
     flex: 1,
   },
   drawerContainer: {
-    height: Dimensions.get("screen").height - 50,
+    // height: Dimensions.get("screen").height - 50,
+    // height: "100%",
+    position:"absolute",
+    zIndex:10,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

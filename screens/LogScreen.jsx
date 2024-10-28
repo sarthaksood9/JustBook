@@ -123,7 +123,7 @@ const LogScreen = () => {
                 </View>
             </ScrollView>
 
-            {modalVisible && <LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />}
+            {modalVisible && <LoginDrower setSignInmodalVisible={setSignInmodalVisible} modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />}
             {signInmodalVisible && <SignUpDrower signInmodalVisible={signInmodalVisible} setSignInmodalVisible={setSignInmodalVisible} slideAnim={slideAnim} />}
             {/* {<LoginDrower modalVisible={modalVisible} setModalVisible={setModalVisible} slideAnim={slideAnim} />} */}
 
