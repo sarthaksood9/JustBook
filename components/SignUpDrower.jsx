@@ -19,7 +19,7 @@ const SignUpDrower = ({ signInmodalVisible, setSignInmodalVisible, slideAnim }) 
       easing: Easing.ease,
     }).start(() => setSignInmodalVisible(false));
   };
-  console.log(signInmodalVisible);
+
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

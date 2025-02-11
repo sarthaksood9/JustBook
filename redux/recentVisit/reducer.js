@@ -83,7 +83,6 @@ export const recentVisitReducer = (state = initialState, action) => {
 
 // const xx = loadInitialState();
 
-// console.log(xx)
 
 // const initialState = {
 //     items:  []

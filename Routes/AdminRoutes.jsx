@@ -17,7 +17,6 @@ const AdminRoutes = ({isAdmin, setIsAdmin ,icons, setIcons}) => {
 
     const user = useContext(UserContext);
 
-    // console.log(user);
 
     // setIcons("admin");
     // setIsAdmin("admin")

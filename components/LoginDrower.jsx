@@ -55,13 +55,12 @@ const LoginDrower = ({ setSignInmodalVisible, modalVisible, setModalVisible, sli
 
 
     const { logIn, user, usersList, exist } = useContext(UserContext);
-    console.log(usersList,"list");
-    console.log(user,"user");
+   
 
     const onSubmit = async (data) => {
 
         const ListedUser = await exist(data);
-        console.log(ListedUser,"ls");
+        
         
         // if (ListedUser) {
 

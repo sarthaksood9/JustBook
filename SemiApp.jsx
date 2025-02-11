@@ -31,7 +31,6 @@ export default function SemiApp() {
 
     // user.logOut();
 
-    console.log(user);
 
 
     return (

@@ -16,6 +16,11 @@ const RoomCard = ({ route,item, icons, setIcons }) => {
         setIcons("productcard")
     }
 
+    const handleReserveRoom = () => {
+        navigate.navigate("productcard",{name:route})
+        setIcons("productcard")
+    }
+
 
     const dispatch=useDispatch()
 

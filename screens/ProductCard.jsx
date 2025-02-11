@@ -27,7 +27,6 @@ const ProductCard = ({ icons, setIcons }) => {
     const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
 
-    console.log(item)
 
 
     const [wishPress, setWishPress] = useState(item.wish);
@@ -97,7 +96,7 @@ const ProductCard = ({ icons, setIcons }) => {
                 <View style={styles.btnView}>
                     <Text style={styles.clearBtn}>Coming October</Text>
                     <TouchableOpacity style={styles.saveButton}>
-                        <Text style={styles.saveButtonText}>Notify me</Text>
+                        <Text style={styles.saveButtonText}>Reserve</Text>
                     </TouchableOpacity>
                 </View>
             </View>
