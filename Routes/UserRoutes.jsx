@@ -17,6 +17,8 @@ import Profile from '../screens/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser, setUser } from '../redux/User/actions';
 import { UserContext } from '../context/UserContext';
+import ReserveRoom from '../screens/ReserveRoom';
+import ReserveRoomWithHookForm from '../screens/ReserveRoomWithHookForm';
 // import Search from './components/Search';
 // import UpperNav from './components/UpperNav';
 // import Rooms from './Subscreens/Rooms';
@@ -72,6 +74,10 @@ const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
     const RenderProfileScreen = () => {
         return <Profile icons={icons} setIcons={setIcons} />
     }
+    const RenderReserveScreen = () => {
+        return <ReserveRoomWithHookForm/>
+         return <ReserveRoom/>
+    }
 
     return (
         <View style={styles.main}>
@@ -89,6 +95,7 @@ const UserRoutes = ({ isAdmin, setIsAdmin, icons, setIcons }) => {
                 <Stack.Screen name="productcard" component={RenderProductCard} options={{ headerShown: false }} />
                 <Stack.Screen name="recentvisit" component={RenderRecentVisitScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="wishview" component={RenderWishListViewScreen} options={{ headerShown: false, animationEnabled: false }} />
+                <Stack.Screen name="reserveroom" component={RenderReserveScreen} options={{headerShown:false}}/>
             </Stack.Navigator>
         </View>
 

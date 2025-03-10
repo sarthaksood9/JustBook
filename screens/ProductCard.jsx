@@ -23,6 +23,11 @@ const ProductCard = ({ icons, setIcons }) => {
         navigate.goBack();
         setIcons(name)
     }
+    const handleReserveBtn = () => {
+        navigate.navigate("reserveroom",)
+        console.log("daaabadooooo")
+        setIcons("productcard")
+    }
 
     const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
@@ -95,7 +100,7 @@ const ProductCard = ({ icons, setIcons }) => {
             <View style={styles.botNav}>
                 <View style={styles.btnView}>
                     <Text style={styles.clearBtn}>Coming October</Text>
-                    <TouchableOpacity style={styles.saveButton}>
+                    <TouchableOpacity onPress={()=>{handleReserveBtn()}} style={styles.saveButton}>
                         <Text style={styles.saveButtonText}>Reserve</Text>
                     </TouchableOpacity>
                 </View>
