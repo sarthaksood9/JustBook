@@ -19,12 +19,9 @@ const ProfileScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleContinue = () => {
-    console.log('Continue button pressed');
   };
 
   const {logOut}=useContext(UserContext);
-
-    //
 
   return (
     // <View style={styles.container}>

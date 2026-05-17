@@ -15,14 +15,9 @@ import {
 import Icon from 'react-native-vector-icons/Entypo';
 import { useDispatch } from 'react-redux';
 import { addNoteToWishlistItem } from '../redux/WishList/actions';
-import { useNavigation } from '@react-navigation/native';
 
-const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAnim }) => {
-
+const BottomDrawer = ({ setNotes, val, id, modalVisible, setModalVisible, slideAnim }) => {
     const [text, setText] = useState(val);
-
-
-    
 
     const closeDrawer = () => {
         Animated.timing(slideAnim, {
@@ -31,48 +26,35 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
             useNativeDriver: true,
             easing: Easing.ease,
         }).start(() => setModalVisible(false));
-        // navigate.replace('wishview');
     };
 
     const dispatch = useDispatch();
-
 
     const handleSave = () => {
         dispatch(addNoteToWishlistItem(id, text));
         setNotes(text);
         closeDrawer();
     };
+
     const handleClear = () => {
         setText("")
     };
 
-
-
-
-    const maxWords = 250;
-
-    const handleTextChange = (text) => {
     const handleTextChange = (inputText) => {
-        // if (countWords(inputText) <= maxWords) {
         setText(inputText);
-        // }
     };
-
 
     return (
         <View style={styles.container}>
-
-
             <Modal
                 visible={modalVisible}
                 transparent
-                animationType="none" // We'll use custom animation with Animated API
+                animationType="none"
             >
                 <View style={styles.modalBackground}>
                     {<TouchableOpacity style={styles.overlay} onPress={closeDrawer} />}
 
                     <KeyboardAvoidingView behavior='position'>
-
                         <Animated.View
                             style={[
                                 styles.drawerContainer,
@@ -80,7 +62,6 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
                                     transform: [{ translateY: slideAnim }],
                                 },
                             ]}
-                            
                         >
                             <Icon name="cross" onPress={closeDrawer} size={20} style={styles.icon} />
 
@@ -88,7 +69,6 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
 
                             <View style={styles.containerI}>
                                 <TextInput
-                                    // onChangeText={set}
                                     style={styles.textArea}
                                     multiline={true}
                                     numberOfLines={6}
@@ -96,12 +76,8 @@ const BottomDrowr = ({ setNotes, val, id, modalVisible, setModalVisible, slideAn
                                     onChangeText={handleTextChange}
                                     placeholder="Type your message here (max 250 words)..."
                                 />
-                                <Text style={styles.wordCounter}>
-                                    {/* {countWords(text)} / {maxWords} words */}
-                                </Text>
+                                <Text style={styles.wordCounter} />
                             </View>
-
-                            {/* <Button>clear</Button> */}
 
                             <View style={styles.btnView}>
                                 <Pressable onPress={handleClear}>
@@ -124,7 +100,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#c21b1b',
     },
     openButton: {
         backgroundColor: '#1E90FF',
@@ -150,8 +126,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         padding: 20,
     },
-
-
     title: {
         fontSize: 20,
         fontWeight: '500',
@@ -164,8 +138,6 @@ const styles = StyleSheet.create({
         left: 13,
         zIndex: 10
     },
-
-
     containerI: {
         position: "relative",
         borderBottomColor: "gray",
@@ -212,9 +184,6 @@ const styles = StyleSheet.create({
     saveButtonText: {
         color: "white"
     }
-
-
-
 });
 
-export default BottomDrowr;
+export default BottomDrawer;

@@ -1,31 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import BottomNav from './components/BottomNav';
-import { useContext, useEffect, useState } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import store from './redux/WishList/store';
-import { SafeAreaView } from 'react-native';
-import UserRoutes from './Routes/UserRoutes';
-import AdminRoutes from './Routes/AdminRoutes';
-import { UserContext, UserProvider } from './context/UserContext';
-import AdminBottomNav from './components/AdminBottomNav';
+import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { UserProvider } from './context/UserContext';
 import SemiApp from './SemiApp';
-
-// import "./ReactotronConfig.js"
-// import reactotron from 'reactotron-react-native';
-
-
-
+import ErrorBoundary from './components/ErrorBoundary';
 
 export default function App() {
-
-
-  return (
-    <UserProvider>
-      <SemiApp />
-    </UserProvider>
-
-  );
+    return (
+        <ErrorBoundary>
+            <SafeAreaProvider>
+                <UserProvider>
+                    <SemiApp />
+                </UserProvider>
+            </SafeAreaProvider>
+        </ErrorBoundary>
+    );
 }
+
 

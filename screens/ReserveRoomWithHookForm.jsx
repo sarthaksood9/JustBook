@@ -21,8 +21,6 @@ const ReserveRoomWithHookForm = () => {
   const [guestCount, setGuestCount] = useState(1);
 
   const onSubmit = (data) => {
-    console.log('Selected Date:', data.date);
-    console.log('Number of Guests:', data.guests);
   };
 
   // Handle Date Change

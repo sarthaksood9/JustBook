@@ -7,11 +7,11 @@ import Icon4 from 'react-native-vector-icons/Feather';
 import Icon5 from 'react-native-vector-icons/EvilIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, removeItem } from '../redux/WishList/actions';
+import { addItemAsync, removeItemAsync } from '../redux/WishList/actions';
 import { UserContext } from '../context/UserContext';
 
 
-const ProductCard = ({ icons, setIcons }) => {
+const ProductCard = () => {
 
     const user=  useContext(UserContext);
 
@@ -21,20 +21,16 @@ const ProductCard = ({ icons, setIcons }) => {
 
     const handleBackBtn = () => {
         navigate.goBack();
-        setIcons(name)
     }
+
     const handleReserveBtn = () => {
-        navigate.navigate("reserveroom",)
-        console.log("daaabadooooo")
-        setIcons("productcard")
+        navigate.navigate("reserveroom")
     }
 
     const dispatch = useDispatch();
     const item = useSelector(state => state.product.item);
 
-
-
-    const [wishPress, setWishPress] = useState(item.wish);
+    const [wishPress, setWishPress] = useState(item?.wish || false);
 
     let wishBtn = {
         fontSize: 30,
@@ -45,7 +41,7 @@ const ProductCard = ({ icons, setIcons }) => {
     return (
         <View style={{ position: "relative", flex: 1 }}>
             <View style={styles.navBtnsOverlAy}>
-                <Pressable onPress={() => { handleBackBtn("rooms") }}>
+                <Pressable onPress={() => { handleBackBtn() }}>
                     <View style={styles.BtnView}>
                         <Icon3 name="keyboard-arrow-left" style={styles.BackBtn} />
                     </View>
@@ -55,7 +51,7 @@ const ProductCard = ({ icons, setIcons }) => {
                         <Icon name="share-outline" style={styles.sharebBtn} />
                     </View>
                     <View style={styles.BtnView}>
-                        <Pressable onPress={() => { { !wishPress ? (dispatch(addItem(item)),user.addToWishlist(item) ): dispatch(removeItem(item.id)) }; setWishPress(!wishPress) }}>
+                        <Pressable onPress={() => { { !wishPress ? (dispatch(addItemAsync(item)),user.addToWishlist(item) ): dispatch(removeItemAsync(item.id)) }; setWishPress(!wishPress) }}>
                             <Icon5 name="heart" style={[wishBtn]} />
                         </Pressable>
                     </View>

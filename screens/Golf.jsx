@@ -1,18 +1,20 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { poolsDummyData } from '../Data/pools';
+import React, { useState } from 'react'
+import { golfDummyData } from '../Data/golf';
 import RoomCard from '../components/RoomCard';
-import PoolCard from '../components/PoolCard';
 import Search from '../components/Search';
 import UpperNav from '../components/UpperNav';
 
-const Pools = () => {
-  const data = poolsDummyData;
+const Golf = () => {
+  const [data, setData] = useState(golfDummyData);
+
+  const route = "golf"
 
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <PoolCard item={item} />
+    return <RoomCard route={route} item={item} />
   }
+
   return (
     <View style={styles.homeCount}>
       <Search />
@@ -21,18 +23,17 @@ const Pools = () => {
         showsVerticalScrollIndicator={false}
         style={{ marginHorizontal: 18 }}
         data={data}
-        key={item => item.name}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderCards}
       />
     </View>
   )
 }
 
-export default Pools
+export default Golf
 
 const styles = StyleSheet.create({
   homeCount: {
-    // flex:1,
     height: "100%"
   }
 })

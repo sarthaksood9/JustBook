@@ -6,53 +6,53 @@ import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const BottomNav = ({ setIcons, icons }) => {
+const BottomNav = () => {
     const navigate = useNavigation();
+    const insets = useSafeAreaInsets();
 
-    const currentRoute = icons;
-    const cc = navigate.getCurrentRoute()?.name;
-
-
-    const hendleNavigateRooms = (name) => {
-        navigate.navigate(name)
-        setIcons(name)
+    const handleNavigate = (screenName) => {
+        navigate.navigate(screenName)
     }
 
     return (
-        <View style={styles.botNav}>
-            <Pressable onPress={() => { hendleNavigateRooms("rooms") }}>
-                <View style={[styles.iconView,]}>
-                    <Icon name="search" size={28} style={{ fontWeight: "bold", color: currentRoute === "rooms" || currentRoute === "pools"  ?"red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "rooms" || currentRoute === "pools" ?"red" : "rgb(141, 141, 141)" }]}>Search</Text>
+        <View style={[styles.botNav, { paddingBottom: insets.bottom || 10 }]}>
+            <Pressable onPress={() => { handleNavigate("rooms") }}>
+                <View style={styles.iconView}>
+                    <Icon name="search" size={28} style={{ fontWeight: "bold", color: "rgb(141, 141, 141)" }} />
+                    <Text style={styles.navFont}>Search</Text>
                 </View>
             </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("wishlist") }}>
-                <View style={styles.iconView}>
-                    <Icon3 name="favorite-border" size={28} style={{ fontWeight: "200", color: currentRoute === "wishlist" ?"red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "wishlist" ?"red" : "rgb(141, 141, 141)" }]}> Wishlists</Text>
-                </View>
-            </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("trips") }}>
-                <View style={styles.iconView}>
-                    <Icon2 name="airbnb" size={28} style={{ fontWeight: "100", color: currentRoute === "trips"?"red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "trips" ?"red" : "rgb(141, 141, 141)" }]}>Trips</Text>
-                </View>
-            </Pressable>
-            <Pressable onPress={() => { hendleNavigateRooms("message") }}>
-                <View style={styles.iconView}>
-                    <Icon4 name="message-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "message"?"red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "message" ?"red" : "rgb(141, 141, 141)" }]}>Message</Text>
-                </View>
-            </Pressable >
-            <Pressable onPress={() => { hendleNavigateRooms("profile") }}>
-                <View style={styles.iconView}>
-                    <Icon5 name="person-circle-outline" size={28} style={{ fontWeight: "100", color: currentRoute === "profile"?"red" : "rgb(141, 141, 141)" }} />
-                    <Text style={[styles.navFont,{ fontWeight: "200", color: currentRoute === "profile" ?"red" : "rgb(141, 141, 141)" }]}>Profile</Text>
-                </View>
-            </Pressable>
-        </View >
 
+            <Pressable onPress={() => { handleNavigate("wishlist") }}>
+                <View style={styles.iconView}>
+                    <Icon3 name="favorite-border" size={28} style={{ fontWeight: "200", color: "rgb(141, 141, 141)" }} />
+                    <Text style={styles.navFont}>Wishlists</Text>
+                </View>
+            </Pressable>
+
+            <Pressable onPress={() => { handleNavigate("trips") }}>
+                <View style={styles.iconView}>
+                    <Icon2 name="airbnb" size={28} style={{ fontWeight: "100", color: "rgb(141, 141, 141)" }} />
+                    <Text style={styles.navFont}>Trips</Text>
+                </View>
+            </Pressable>
+
+            <Pressable onPress={() => { handleNavigate("messages") }}>
+                <View style={styles.iconView}>
+                    <Icon4 name="message-outline" size={28} style={{ fontWeight: "100", color: "rgb(141, 141, 141)" }} />
+                    <Text style={styles.navFont}>Message</Text>
+                </View>
+            </Pressable>
+
+            <Pressable onPress={() => { handleNavigate("profile") }}>
+                <View style={styles.iconView}>
+                    <Icon5 name="person-circle-outline" size={28} style={{ fontWeight: "100", color: "rgb(141, 141, 141)" }} />
+                    <Text style={styles.navFont}>Profile</Text>
+                </View>
+            </Pressable>
+        </View>
     )
 }
 
@@ -61,7 +61,7 @@ export default BottomNav
 const styles = StyleSheet.create({
     botNav: {
         position: "absolute",
-        bottom: -30,
+        bottom: 0,
         zIndex: 100,
         flexDirection: "row",
         justifyContent: "space-around",
@@ -74,21 +74,20 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 8,
         overflow: Platform.OS === 'android' ? "hidden" : "",
-        paddingHorizontal: 20
-
+        paddingHorizontal: 20,
+        bottom:-60
     },
     iconView: {
         paddingVertical: 7,
         paddingHorizontal: 5,
-        paddingBottom: 25,
+        paddingBottom: 5,
         justifyContent: "center",
         alignItems: "center",
-        gap: 2,
+        gap: 4,
     },
     navFont: {
-        fontWeight: "400",
+        fontWeight: "200",
         color: "rgb(141, 141, 141)",
         fontSize: 12,
-        fontFamily: 'Inter_400Regular',
-    }
-})
+    },
+});

@@ -4,12 +4,11 @@ import { hotelDummyData } from '../Data/hotels'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
-const PoolCard = ({ item,setIcons, icons }) => {
+const PoolCard = ({ item }) => {
     const navigate = useNavigation();
 
     const handleCardBtn = () => {
         navigate.navigate("productcard")
-            setIcons("productcard")
     }
     return (
         <Pressable onPress={() => { handleCardBtn() }}>

@@ -5,14 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadInitialRecents } from '../redux/recentVisit/actions';
 import { loadInitialWish } from '../redux/WishList/actions';
 import device from '../utils/device';
-// import rn_device from 'react-native-device-info';
 
-const WishList = ({ icons, setIcons }) => {
+const WishList = () => {
   const navigate = useNavigation();
 
   const openRecent = (name) => {
     navigate.navigate(name)
-    setIcons(name)
   }
 
   const wishlist = useSelector(state => state.wishlist.items);

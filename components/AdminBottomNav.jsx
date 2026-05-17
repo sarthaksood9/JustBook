@@ -1,24 +1,22 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const AdminBottomNav = ({setIcons, icons }) => {
+const AdminBottomNav = () => {
     const navigate = useNavigation();
-
-    const currentRoute = icons;
-    const cc = navigate.getCurrentRoute()?.name;
-
+    const route = useRoute();
+    const insets = useSafeAreaInsets();
+    const currentRoute = route.name;
 
     const hendleNavigateRooms = (name) => {
         navigate.navigate(name)
-        setIcons(name)
     }
 
     return (
-        <View style={styles.botNav}>
+        <View style={[styles.botNav, { bottom: insets.bottom }]}>
             <Pressable onPress={() => { hendleNavigateRooms("today") }}>
                 <View style={[styles.iconView,]}>
                     <Ionicons name="home-outline" size={24} style={{ fontWeight: "bold", color: currentRoute === "today" ? "red" : "rgb(141, 141, 141)" }} />
@@ -57,8 +55,7 @@ export default AdminBottomNav
 
 const styles = StyleSheet.create({
     botNav: {
-        position: "absolute",
-        bottom: -30,
+        // position: "absolute",
         zIndex: 100,
         flexDirection: "row",
         justifyContent: "space-around",
@@ -71,7 +68,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 8,
         overflow: Platform.OS === 'android' ? "hidden" : "",
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        bottom:100
 
     },
     iconView: {

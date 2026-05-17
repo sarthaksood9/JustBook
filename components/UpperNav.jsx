@@ -2,36 +2,28 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation, useNavigationState, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const UpperNav = ({ icons, setIcons }) => {
+const UpperNav = () => {
 
   const navigate = useNavigation();
-  const currentRoute = icons;
-  const cc = navigate.getCurrentRoute()?.name;
-
-
-
+  const route = useRoute();
+  const currentRoute = route.name;
 
   const hendleNavigateRooms = () => {
     navigate.navigate("rooms")
-    setIcons("rooms")
   }
   const hendleNavigatePools = () => {
     navigate.navigate("pools")
-    setIcons("pools")
   }
   const hendleNavigatefarms = () => {
-    // navigate.navigate("rooms")
-    setIcons("farms")
+    navigate.navigate("farms")
   }
   const hendleNavigatebeach = () => {
-    // navigate.navigate("pools")
-    setIcons("beach")
+    navigate.navigate("beach")
   }
   const hendleNavigategolf = () => {
-    // navigate.navigate("rooms")
-    setIcons("golf")
+    navigate.navigate("golf")
   }
 
 
@@ -70,19 +62,19 @@ const UpperNav = ({ icons, setIcons }) => {
           <Text style={{fontFamily: 'Inter_400Regular',fontWeight: "400",color:currentRoute !== "pools"? "rgb(141, 141, 141)":"black"}}>Pools</Text>
     </View>
       </Pressable >
-      <Pressable onPress={() => { hendleNavigateRooms() }}>
+      <Pressable onPress={() => { hendleNavigatefarms() }}>
         <View style={[styles.iconView, { borderBottomColor: currentRoute === "farms" ? "" : "", borderBottomWidth: currentRoute === "farms" ? 1.5 : 0 }]}>
           <Icon name="warehouse" size={30} style={{ fontWeight: "bold", color: "rgb(141, 141, 141)" }} />
           <Text style={styles.text}>Farms</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => { hendleNavigateRooms() }}>
+      <Pressable onPress={() => { hendleNavigatebeach() }}>
         <View style={[styles.iconView, { borderBottomColor: currentRoute === "beach" ? "" : "", borderBottomWidth: currentRoute === "beach" ? 1.5 : 0 }]}>
           <Icon name="lighthouse" size={30} style={{ fontWeight: "bold", color: "rgb(141, 141, 141)" }} />
           <Text style={styles.text}>Beach</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => { hendleNavigateRooms() }}>
+      <Pressable onPress={() => { hendleNavigategolf() }}>
         <View style={[styles.iconView, { borderBottomColor: currentRoute === "golf" ? "" : "", borderBottomWidth: currentRoute === "golf" ? 1.5 : 0 }]}>
           <Icon2 name="golf-ball" size={30} style={{ fontWeight: "bold", color: "rgb(141, 141, 141)" }} />
           <Text style={styles.text}>Golf</Text>

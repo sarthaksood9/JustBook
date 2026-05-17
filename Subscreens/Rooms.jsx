@@ -7,60 +7,31 @@ import { hotelDummyData } from '../Data/hotels';
 import useDebounce from '../hooks/useDebounce';
 import ThreeDotsLoading from '../components/ThreeDotsLoading';
 import { useSelector } from 'react-redux';
+import Search from '../components/Search';
+import UpperNav from '../components/UpperNav';
 
-const Rooms = ({ inputVal, setInputVal,icons, setIcons }) => {
-
-
+const Rooms = () => {
   const [data, setData] = useState(hotelDummyData);
-
-  // useEffect(() => {
-  //   const filteredHotels = hotelDummyData.filter(hotel => hotel.name.toLowerCase().includes(inputVal));
-  //   setData(filteredHotels);
-  // },[inputVal])
-
-
-
-  // useEffect(() => {
-  //   const delayDebounceFnc = setTimeout(() => {
-  //     const filteredHotels = hotelDummyData.filter(hotel =>
-  //       hotel.name.toLowerCase().includes(inputVal.toLowerCase())
-  //     );
-  //     setData(filteredHotels);
-  //   }, 2000); 
-
-  //   return () => clearTimeout(delayDebounceFnc);
-  // }, [inputVal]);
-
   const [loading, setLoading] = useState(true);
-  // const [loading, setLoading] = useState(false);
 
 
-  const filterHotels = () => {
-    if (inputVal.trim() === '') {
-      setData(hotelDummyData);
-    } else {
-      const filtered = data.filter(hotel =>
-        hotel.name.toLowerCase().includes(inputVal.toLowerCase())
-      );
-      setData(filtered);
-    }
-  };
 
   
 
-  // useDebounce(filterHotels, 1500, [inputVal],setLoading);
 
 
   const route="rooms"
 
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <RoomCard route={route} item={item} icons={icons} setIcons={setIcons} />
+    return <RoomCard route={route} item={item} />
   }
 
 
   return (
     <View style={styles.homeCount}>
+      <Search />
+      <UpperNav />
       {!loading?<ThreeDotsLoading/>:<FlatList
         showsVerticalScrollIndicator={false}
         style={{ marginHorizontal: 18 }}

@@ -10,13 +10,12 @@ const Listing = () => {
 
 
   const navigate = useNavigation();
-  // const cc=navigate.getCurrentRoute()?.name;
 
 
   const [data, setData] = useState(hotelDummyData);
   const renderCards = (itemData) => {
     const item = itemData.item;
-    return <RoomCard item={item} icons={"listing"} />
+    return <RoomCard item={item} />
   }
 
 

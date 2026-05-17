@@ -5,29 +5,27 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProduct } from '../redux/Product/actions';
-import { addToResent } from '../redux/recentVisit/actions';
+import { addToRecentAsync } from '../redux/recentVisit/actions';
 
-const RoomCard = ({ route,item, icons, setIcons }) => {
+const RoomCard = ({ route, item }) => {
 
     const navigate = useNavigation();
 
     const handleCardBtn = () => {
-        navigate.navigate("productcard",{name:route})
-        setIcons("productcard")
+        navigate.navigate("productcard", { name: route })
     }
 
     const handleReserveRoom = () => {
-        navigate.navigate("productcard",{name:route})
-        setIcons("productcard")
+        navigate.navigate("productcard", { name: route })
     }
 
 
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
 
 
     return (
-        <Pressable onPress={() => { handleCardBtn();dispatch(selectProduct(item));dispatch(addToResent(item)) }}>
+        <Pressable onPress={() => { handleCardBtn(); dispatch(selectProduct(item)); dispatch(addToRecentAsync(item)) }}>
             <View style={styles.cont}>
                 <View style={styles.imageView} >
                     <Image style={styles.image} source={{ uri: item.imgUrl }} />
@@ -38,7 +36,7 @@ const RoomCard = ({ route,item, icons, setIcons }) => {
                 <View style={styles.textview}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.price}>{item.price}</Text>
-                    {icons!=="wishview" || icons!=="listing" && <Text style={styles.place}>{item.place}</Text>}
+                    <Text style={styles.place}>{item.place}</Text>
                 </View>
             </View>
         </Pressable>
